@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Button
+comment1.params=
+comment1.target=Button()
+comment2.params=id
+comment2.target=Button(int)
+comment3.params=
+comment3.target=void\ operate()
+comment4.params=
+comment4.target=void\ act()
+numComments=5

@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=OrangeWorld
+comment1.params=
+comment1.target=OrangeWorld()
+comment2.params=music
+comment2.target=OrangeWorld(greenfoot.GreenfootSound)
+comment3.params=
+comment3.target=void\ act()
+comment4.params=height\ targetHeight
+comment4.target=int\ getRandomHeight(int,\ int)
+comment5.params=x
+comment5.target=void\ loadColumn(int)
+comment6.params=x\ height
+comment6.target=void\ genColumn(int,\ int)
+comment7.params=right
+comment7.target=void\ removeEdgeColumn(boolean)
+comment8.params=list
+comment8.target=void\ sortList(java.util.ArrayList)
+comment9.params=
+comment9.target=void\ prepare()
+numComments=10

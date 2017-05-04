@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Dialogue
+comment1.params=id
+comment1.target=Dialogue(int)
+comment2.params=
+comment2.target=void\ startReveal()
+comment3.params=
+comment3.target=void\ act()
+numComments=4

@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Heart
+comment1.params=dir\ charge\ vel
+comment1.target=Heart(char,\ int,\ double)
+comment2.params=
+comment2.target=void\ firstTime()
+comment3.params=dir\ charge
+comment3.target=Heart(char,\ int)
+comment4.params=
+comment4.target=void\ pop()
+comment5.params=
+comment5.target=void\ act()
+numComments=6

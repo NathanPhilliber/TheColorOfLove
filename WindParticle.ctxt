@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=WindParticle
+comment1.params=side\ rotation
+comment1.target=WindParticle(char,\ int)
+comment2.params=
+comment2.target=void\ act()
+numComments=3
