@@ -183,6 +183,15 @@ public class Player extends GravityObject
     int deadFrames = 0;
     public boolean hideCritical = false;
     public void checkDead(){
+        
+        
+        if(yVel > 100 && !isDead){
+            isDead = true;
+            deathSound.play();
+            world.addObject(new StaticImage(12, Color.BLACK), 500, 300);
+            
+        }
+
         if (curPaintHeight <= 0 && !isDead && !hideCritical){
             if(criticalUp && critical.getImage().getTransparency() == 0){
                 warning.play();
@@ -294,7 +303,7 @@ public class Player extends GravityObject
             else if(paintId == 4)
                 paintColor = Color.MAGENTA;
 
-            if(buttonOut == false){
+            if(buttonOut == false && paintId != 4){
                 continueButton.sideScroll = false;
                 world.addObject(continueButton, 500, 100);
                 buttonOut = true;

@@ -2,8 +2,10 @@
 comment0.target=EyeBullet
 comment1.params=player
 comment1.target=EyeBullet(Player)
-comment2.params=
-comment2.target=void\ firstTime()
+comment2.params=player\ autoTurn
+comment2.target=EyeBullet(Player,\ boolean)
 comment3.params=
-comment3.target=void\ act()
-numComments=4
+comment3.target=void\ firstTime()
+comment4.params=
+comment4.target=void\ act()
+numComments=5
