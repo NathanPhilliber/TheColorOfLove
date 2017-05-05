@@ -5,16 +5,42 @@ public class PurpleWorld extends World
 
     int frames = 0;
     Player player;
-    public PurpleWorld()
-    {    
-
-        super(1000, 600, 1, false); 
-        prepare();
+    GreenfootSound music;
+    int vol = 100;
+    public boolean fadeMusic = false;
+    
+    public PurpleWorld(){
+        this(null);
     }
+
+    public PurpleWorld(GreenfootSound music)
+    {    
+        super(1000, 600, 1, false); 
+
+        this.music = music;
+
+        setPaintOrder(ParticleEffect.class, StaticImage.class, Player.class, Platform.class, MovableObject.class, Scenery.class);
+
+        prepare();
+        addObject(new StaticImage(16, Color.MAGENTA), getWidth()/2, getHeight()/2);
+
+    } 
 
     public void act(){
         frames++;
 
+        if(frames == 1){
+            if(music == null){
+                music = new GreenfootSound("sounds/apr.mp3");
+                music.playLoop();   //PUT THIS BAC
+            }
+            
+        }
+        
+        if(fadeMusic && vol > 0){
+            music.setVolume(vol--);
+        }
+        
         if(frames == 10){
             player.addFillColor(155);
         }

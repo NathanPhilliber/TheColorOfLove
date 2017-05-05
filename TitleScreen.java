@@ -16,11 +16,12 @@ public class TitleScreen extends World
     private void prepare()
     {
         TitleCard titlecard = new TitleCard();
-        addObject(titlecard,500,300);
-        addObject(new TitleCardOutline(),500,300);
+        addObject(titlecard,500,200);
+        addObject(new TitleCardOutline(),500,200);
         
         
-        addObject(new Button(0),500,430);
+        addObject(new Button(0),500,330);
+        addObject(new Button(9),500,425);
         addObject(new Button(1),500,520);
         
         

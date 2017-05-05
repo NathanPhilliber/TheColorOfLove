@@ -2,8 +2,10 @@
 comment0.target=PurpleWorld
 comment1.params=
 comment1.target=PurpleWorld()
-comment2.params=
-comment2.target=void\ act()
+comment2.params=music
+comment2.target=PurpleWorld(greenfoot.GreenfootSound)
 comment3.params=
-comment3.target=void\ prepare()
-numComments=4
+comment3.target=void\ act()
+comment4.params=
+comment4.target=void\ prepare()
+numComments=5

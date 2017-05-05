@@ -125,7 +125,7 @@ public class GravityObject extends MovableObject
             }
         }
 
-        if(standingOn == null || standingOn.useCollision == false || ignoreGround){
+        if((standingOn == null || standingOn.useCollision == false) && !ignoreGround){
             yVel += gravity;
             //againstLeftWall = false;
             //againstRightWall = false;

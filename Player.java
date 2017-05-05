@@ -236,7 +236,7 @@ public class Player extends GravityObject
                     Greenfoot.setWorld(new BlueWorld());
                 }
                 if(world instanceof PurpleWorld){
-                    Greenfoot.setWorld(new PurpleWorld());
+                    Greenfoot.setWorld(new PurpleWorld(((PurpleWorld)world).music));
                 }
             }
         }

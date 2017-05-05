@@ -31,6 +31,12 @@ public class Button extends UIObject
         else if(id == 3){
             img = new GreenfootImage("images/BackButton.png");
         }
+        else if(id >= 4 && id <= 8){
+            img = new GreenfootImage("images/colorbutton_"+(id-4)+".png");
+        }
+        else if(id == 9){
+            img = new GreenfootImage("images/LevelSelect.png");
+        }
 
         setImage(img);
     }
@@ -62,11 +68,38 @@ public class Button extends UIObject
                     StaticImage fadeOut = new StaticImage(12, Color.GREEN);
                     world.addObject(fadeOut, 500, 300);
                 }
+                else if(world instanceof BlueWorld){
+                    StaticImage fadeOut = new StaticImage(12, Color.BLUE);
+                    world.addObject(fadeOut, 500, 300);
+                }
+                else if(world instanceof PurpleWorld){
+ 
+
+                }
+                
             }
 
         }
         else if(id == 3){
             Greenfoot.setWorld(new TitleScreen());
+        }
+        else if(id == 4){
+            Greenfoot.setWorld(new RedWorld());
+        }
+        else if(id == 5){
+            Greenfoot.setWorld(new OrangeWorld());
+        }
+        else if(id == 6){
+            Greenfoot.setWorld(new GreenWorld());
+        }
+        else if(id == 7){
+            Greenfoot.setWorld(new BlueWorld());
+        }
+        else if(id == 8){
+            Greenfoot.setWorld(new PurpleWorld());
+        }
+        else if(id == 9){
+            Greenfoot.setWorld(new LevelSelect());
         }
     }
     GreenfootSound musicFade = null;
@@ -90,6 +123,12 @@ public class Button extends UIObject
                     }
                     else if(world instanceof GreenWorld){
                         Greenfoot.setWorld(new CutsceneE());
+                    }
+                    else if(world instanceof BlueWorld){
+                        Greenfoot.setWorld(new CutsceneF());
+                    }
+                    else if(world instanceof PurpleWorld){
+                        Greenfoot.setWorld(new CutsceneG());
                     }
                 }
             }

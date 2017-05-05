@@ -45,7 +45,7 @@ public class OrangeWorld extends World
         if(frames == 1){
             if(music == null){
                 music = new GreenfootSound("sounds/comeandfindme.mp3");
-                music.play();   //PUT THIS BAC
+                music.playLoop();   //PUT THIS BAC
             }
             
         }

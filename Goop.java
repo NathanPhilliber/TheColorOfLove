@@ -27,7 +27,7 @@ public class Goop extends Enemy
         setImage(idle);
         
         if(color.equals(Color.BLUE)){
-            playerReward = 12;
+            playerReward = 17;
         }
     }
 

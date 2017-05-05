@@ -26,7 +26,7 @@ public class Eyeball extends Enemy
         List<Player> objs = world.getObjects(Player.class);
         player = objs.get(0);
         if(world instanceof BlueWorld){
-            playerReward = 15;
+            playerReward = 20;
         }
     }
 

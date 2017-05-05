@@ -16,7 +16,7 @@ public class FinalBoss extends Enemy
 
     GreenfootSound fire = new GreenfootSound("sounds/eyefire.mp3");
     GreenfootSound fire2 = new GreenfootSound("sounds/Boss_6.mp3");
-    GreenfootSound music = new GreenfootSound("sounds/apr.mp3");
+    //GreenfootSound music = new GreenfootSound("sounds/apr.mp3");
 
     public FinalBoss(Player player){
         super();
@@ -32,10 +32,16 @@ public class FinalBoss extends Enemy
 
         if(frames == 0){
             fire.setVolume(40);
-            music.playLoop();
+            //music.playLoop();
+        }
+        
+        frames++;
+        
+        if(frames < 200){
+            return;
         }
 
-        frames++;
+        
 
         if(damaged){
             counter++;
@@ -370,7 +376,17 @@ public class FinalBoss extends Enemy
 
         }
         else if(colorState == 5){
-            setWorld(new CutsceneG());
+            counter++;
+            getImage().setTransparency(256 - counter);
+            if(counter == 1){
+                world.addObject(new StaticImage(12, Color.BLACK), 500, 300);//fade
+                
+                ((PurpleWorld)world).fadeMusic = true;
+            }
+
+            if(counter > 255){
+                Greenfoot.setWorld(new CutsceneG());
+            }
         }
 
     }    

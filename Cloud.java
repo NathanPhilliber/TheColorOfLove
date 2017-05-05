@@ -24,7 +24,7 @@ public class Cloud extends Enemy
         
         if(world instanceof BlueWorld){
             color = Color.BLUE;
-            playerReward = 15;
+            playerReward = 17;
         }
         else{
             color = Color.GREEN;
