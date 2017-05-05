@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=BlueWorld
+comment1.params=
+comment1.target=BlueWorld()
+comment2.params=
+comment2.target=void\ act()
+comment3.params=height\ targetHeight
+comment3.target=int\ getRandomHeight(int,\ int)
+comment4.params=x
+comment4.target=void\ loadColumn(int)
+comment5.params=x\ height
+comment5.target=void\ genColumn(int,\ int)
+comment6.params=right
+comment6.target=void\ removeEdgeColumn(boolean)
+comment7.params=list
+comment7.target=void\ sortList(java.util.ArrayList)
+comment8.params=
+comment8.target=void\ prepare()
+numComments=9
