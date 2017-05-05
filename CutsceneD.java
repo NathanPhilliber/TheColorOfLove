@@ -7,8 +7,8 @@ public class CutsceneD extends World
     StaticImage player = new StaticImage(10, Color.WHITE);
     int frames = 0;
     
-    StaticImage titleCard = new StaticImage(14);
-    StaticImage subtitleCard = new StaticImage(15);
+    StaticImage titleCard = new StaticImage(20);
+    StaticImage subtitleCard = new StaticImage(21);
     
     GreenfootSound zoom = new GreenfootSound("sounds/color_enter_0.mp3");
     GreenfootSound enter = new GreenfootSound("sounds/color_enter_1.mp3");
@@ -43,7 +43,7 @@ public class CutsceneD extends World
             frames += 20;
         }
         
-        if(frames > 275 && frames< 450){
+        if(frames > 240 && frames < 434){
             playerOrange.setLocation(playerOrange.getX() , playerOrange.getY() + 4);
         }
         
@@ -51,30 +51,30 @@ public class CutsceneD extends World
             zoom.play();
         }
         
-        if(frames == 450){
+        if(frames == 434){
             enter.play();
             playerOrange.setLocation(player.getX(), player.getY());
         }
         
-        if(frames > 430 && frames < 550){
-            playerOrange.getImage().setTransparency(685 - frames);
+        if(frames > 395 && frames < 515){
+            playerOrange.getImage().setTransparency(650 - frames);
         }
         
         
-        if(frames > 550 && frames < 805){
-            titleCard.getImage().setTransparency(frames-550);
+        if(frames > 515 && frames < 770){
+            titleCard.getImage().setTransparency(frames-515);
         }
-        if(frames > 650 && frames < 905){
-            subtitleCard.getImage().setTransparency(frames-650);
-        }
-        
-        if(frames == 950){
-            addObject(new StaticImage(12, Color.YELLOW), 500, 300);
+        if(frames > 615 && frames < 870){
+            subtitleCard.getImage().setTransparency(frames-615);
         }
         
-        if(frames == 1220){
+        if(frames == 915){
+            addObject(new StaticImage(12, Color.GREEN), 500, 300);
+        }
+        
+        if(frames == 1170){
             //SetWorld
-            //Greenfoot.setWorld(new OrangeWorld(music));
+            Greenfoot.setWorld(new GreenWorld());
         }
     }
 }

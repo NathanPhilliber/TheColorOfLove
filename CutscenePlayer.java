@@ -20,6 +20,7 @@ public class CutscenePlayer extends Player
         super();
         targetPaintHeight = 0;
         ignoreBorders = true;
+        hideCritical = true;
     }
 
     public void act() 
@@ -46,12 +47,12 @@ public class CutscenePlayer extends Player
                 purpleHeight = 0;
             }
             
-            paintSprites(++redHeight, new Color(252, 196, 196), true);
-            paintSprites(++orangeHeight, new Color(252, 230, 196), true);
-            paintSprites(++yellowHeight, new Color(252, 250, 196), true);
-            paintSprites(++greenheight, new Color(196, 252, 196), true);
-            paintSprites(++blueHeight, new Color(196, 196, 252), true);
-            paintSprites(++purpleHeight, new Color(247, 212, 246), true);
+            paintSprites(++redHeight, Color.RED, true);
+            paintSprites(++orangeHeight, Color.ORANGE, true);
+            paintSprites(++yellowHeight, Color.YELLOW, true);
+            paintSprites(++greenheight, Color.GREEN, true);
+            paintSprites(++blueHeight, Color.BLUE, true);
+            paintSprites(++purpleHeight, Color.MAGENTA, true);
         }
     }  
     

@@ -58,6 +58,10 @@ public class Button extends UIObject
                     world.addObject(fadeOut, 500, 300);
                     ((OrangeWorld)world).fadeMusic = true;
                 }
+                else if(world instanceof GreenWorld){
+                    StaticImage fadeOut = new StaticImage(12, Color.GREEN);
+                    world.addObject(fadeOut, 500, 300);
+                }
             }
 
         }
@@ -83,6 +87,9 @@ public class Button extends UIObject
                     }
                     else if(world instanceof OrangeWorld){
                         Greenfoot.setWorld(new CutsceneD());
+                    }
+                    else if(world instanceof GreenWorld){
+                        Greenfoot.setWorld(new CutsceneE());
                     }
                 }
             }

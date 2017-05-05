@@ -13,7 +13,8 @@ public class Eyeball extends Enemy
     GreenfootSound fire = new GreenfootSound("sounds/eyefire.mp3");
     GreenfootSound moveSound = new GreenfootSound("sounds/eyeballmove.mp3");
     GreenfootSound deathSound = new GreenfootSound("sounds/eyeballdeath.mp3");
-
+    int playerReward = 25;
+    
     public Eyeball(){
         super();
         nextPhase = Greenfoot.getRandomNumber(300) + 180;
@@ -24,7 +25,9 @@ public class Eyeball extends Enemy
         super.firstTime();
         List<Player> objs = world.getObjects(Player.class);
         player = objs.get(0);
-
+        if(world instanceof BlueWorld){
+            playerReward = 15;
+        }
     }
 
     public void act() 
@@ -58,9 +61,10 @@ public class Eyeball extends Enemy
     public void checkHit(){
         Heart heart = (Heart)getOneObjectAtOffset(0, 0, Heart.class);
         if(heart != null){
+            heart.pop();
             deathSound.play();
             world.removeObject(this);
-            player.addFillColor(30);
+            player.addFillColor(playerReward);
         }
     }
 

@@ -135,6 +135,36 @@ public class StaticImage extends UIObject
             setImage(new GreenfootImage("images/cactus_"+Greenfoot.getRandomNumber(2)+".png"));
 
         }
+        else if(id == 20){
+            sideScroll = false;
+            setImage(new GreenfootImage("images/Chapter3Card.png"));
+            getImage().setTransparency(0);
+        }
+        else if(id == 21){
+            sideScroll = false;
+            setImage(new GreenfootImage("images/Chapter3SubtitleCard.png"));
+            getImage().setTransparency(0);
+        }
+        else if(id == 22){
+            sideScroll = false;
+            setImage(new GreenfootImage("images/Chapter4Card.png"));
+            getImage().setTransparency(0);
+        }
+        else if(id == 23){
+            sideScroll = false;
+            setImage(new GreenfootImage("images/Chapter4SubtitleCard.png"));
+            getImage().setTransparency(0);
+        }
+        else if(id == 24){
+            sideScroll = false;
+            setImage(new GreenfootImage("images/Chapter5Card.png"));
+            getImage().setTransparency(0);
+        }
+        else if(id == 25){
+            sideScroll = false;
+            setImage(new GreenfootImage("images/Chapter5SubtitleCard.png"));
+            getImage().setTransparency(0);
+        }
 
     }
 

@@ -36,7 +36,7 @@ public class CutsceneA extends World
     int part = 0;
     StaticImage fadeOut = new StaticImage(12, Color.BLACK);
     StaticImage sadPlayerImg = new StaticImage(11);
-    StaticImage redPlayer = null, orangePlayer = null, yellowPlayer = null, greenPlayer = null, bluePlayer = null, purplePlayer = null;
+    StaticImage redPlayer = null, orangePlayer = null, greenPlayer = null, bluePlayer = null, purplePlayer = null;
     public CutsceneA()
     {    
         super(1000, 600, 1, false); 
@@ -208,7 +208,7 @@ public class CutsceneA extends World
             addObject(orangePlayer, player.getX(), player.getY());
         }
         
-        if(frames > 2250 && frames < 2350){
+        if(frames > 2250 && frames < 2425){
             orangePlayer.setLocation(orangePlayer.getX(), orangePlayer.getY() - 2);
             if(orangePlayer.getImage().getTransparency() < 252){
                 orangePlayer.getImage().setTransparency(orangePlayer.getImage().getTransparency() + 3);
@@ -216,16 +216,18 @@ public class CutsceneA extends World
         }
         
         if(frames == 2325){
-            dump2.play();
+            frames = 2400;
+            /*dump2.play();
             yellowPlayer = new StaticImage(10, Color.YELLOW);
-            addObject(yellowPlayer, player.getX(), player.getY());
+            addObject(yellowPlayer, player.getX(), player.getY());*/
         }
         
         if(frames > 2325 && frames < 2425){
+            /*
             yellowPlayer.setLocation(yellowPlayer.getX() + 1, yellowPlayer.getY() - 2);
             if(yellowPlayer.getImage().getTransparency() < 252){
                 yellowPlayer.getImage().setTransparency(yellowPlayer.getImage().getTransparency() + 3);
-            }
+            }*/
         }
         
         if(frames == 2400){
@@ -235,7 +237,7 @@ public class CutsceneA extends World
         }
         
         if(frames > 2400 && frames < 2500){
-            greenPlayer.setLocation(greenPlayer.getX() + 2, greenPlayer.getY() - 2);
+            greenPlayer.setLocation(greenPlayer.getX() + 1, greenPlayer.getY() - 2);
             if(greenPlayer.getImage().getTransparency() < 252){
                 greenPlayer.getImage().setTransparency(greenPlayer.getImage().getTransparency() + 3);
             }
@@ -248,7 +250,7 @@ public class CutsceneA extends World
         }
         
         if(frames > 2475 && frames < 2575){
-            bluePlayer.setLocation(bluePlayer.getX() + 3, bluePlayer.getY() - 2);
+            bluePlayer.setLocation(bluePlayer.getX() + 2, bluePlayer.getY() - 2);
             if(bluePlayer.getImage().getTransparency() < 252){
                 bluePlayer.getImage().setTransparency(bluePlayer.getImage().getTransparency() + 3);
             }
@@ -261,7 +263,7 @@ public class CutsceneA extends World
         }
         
         if(frames > 2550 && frames < 2650){
-            purplePlayer.setLocation(purplePlayer.getX() + 4, purplePlayer.getY() - 2);
+            purplePlayer.setLocation(purplePlayer.getX() + 3, purplePlayer.getY() - 2);
             if(purplePlayer.getImage().getTransparency() < 252){
                 purplePlayer.getImage().setTransparency(purplePlayer.getImage().getTransparency() + 3);
             }
@@ -293,12 +295,13 @@ public class CutsceneA extends World
                 greenPlayer.setLocation(-1000, -1000);
             }
             
+            /*
             yellowPlayer.setLocation(yellowPlayer.getX()+3, yellowPlayer.getY());
             if(yellowPlayer.getX() >= boss.getX()){
                 yellowPlayer.getImage().setTransparency(0);
                 eat.play();
                 yellowPlayer.setLocation(-1000, -1000);
-            }
+            }*/
             
             orangePlayer.setLocation(orangePlayer.getX()+3, orangePlayer.getY());
             if(orangePlayer.getX() >= boss.getX()){

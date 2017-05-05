@@ -181,8 +181,9 @@ public class Player extends GravityObject
     boolean isDead = false;
     boolean criticalUp = true;
     int deadFrames = 0;
+    public boolean hideCritical = false;
     public void checkDead(){
-        if (curPaintHeight <= 0 && !isDead){
+        if (curPaintHeight <= 0 && !isDead && !hideCritical){
             if(criticalUp && critical.getImage().getTransparency() == 0){
                 warning.play();
 
@@ -205,7 +206,7 @@ public class Player extends GravityObject
                 world.addObject(new StaticImage(12, Color.BLACK), 500, 300);
             }
         }
-        else if(curPaintHeight < 20 && !isDead){
+        else if(curPaintHeight < 20 && !isDead && !hideCritical){
             critical.getImage().setTransparency(0);
         }
 
@@ -218,6 +219,15 @@ public class Player extends GravityObject
                 }
                 if(world instanceof OrangeWorld){
                     Greenfoot.setWorld(new OrangeWorld(((OrangeWorld)world).music));
+                }
+                if(world instanceof GreenWorld){
+                    Greenfoot.setWorld(new GreenWorld());
+                }
+                if(world instanceof BlueWorld){
+                    Greenfoot.setWorld(new BlueWorld());
+                }
+                if(world instanceof PurpleWorld){
+                    Greenfoot.setWorld(new PurpleWorld());
                 }
             }
         }
@@ -264,6 +274,12 @@ public class Player extends GravityObject
                 paintColor = new Color(255, 10, 10);
             else if(paintId == 1)
                 paintColor = Color.ORANGE;
+            else if(paintId == 2)
+                paintColor = Color.GREEN;
+            else if(paintId == 3)
+                paintColor = Color.BLUE;
+            else if(paintId == 4)
+                paintColor = Color.MAGENTA;
         }
         else if(targetPaintHeight > 156){
             targetPaintHeight = 156;
@@ -271,6 +287,12 @@ public class Player extends GravityObject
                 paintColor = new Color(255, 166, 166);
             else if(paintId == 1)
                 paintColor = Color.ORANGE;
+            else if(paintId == 2)
+                paintColor = Color.GREEN;
+            else if(paintId == 3)
+                paintColor = Color.BLUE;
+            else if(paintId == 4)
+                paintColor = Color.MAGENTA;
 
             if(buttonOut == false){
                 continueButton.sideScroll = false;
@@ -284,6 +306,13 @@ public class Player extends GravityObject
         else if(paintId == 1){
             paintColor = Color.ORANGE;
         }
+        else if(paintId == 2){
+            paintColor = Color.GREEN;
+        }
+        else if(paintId == 3)
+            paintColor = Color.BLUE;
+        else if(paintId == 4)
+            paintColor = Color.MAGENTA;
 
     }
 

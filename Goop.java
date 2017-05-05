@@ -12,6 +12,7 @@ public class Goop extends Enemy
     public Color color;
     boolean dead = false;
     boolean madeAppear = false;
+    int playerReward = 20;
 
     public Goop(Color color){
         super();
@@ -24,6 +25,10 @@ public class Goop extends Enemy
         colorImage(jumping, color);
 
         setImage(idle);
+        
+        if(color.equals(Color.BLUE)){
+            playerReward = 12;
+        }
     }
 
     public Goop(){
@@ -66,7 +71,7 @@ public class Goop extends Enemy
             Heart touched = null;
 
             if((touched = (Heart)getOneIntersectingObject(Heart.class)) != null){
-                target.addFillColor(20);
+                target.addFillColor(playerReward);
                 touched.pop();
                 deathSound.play();
                 for(int i = 0; i < 10; i++){
