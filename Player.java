@@ -433,7 +433,7 @@ public class Player extends GravityObject
     
     public void smartCameraMove(){
         if(goDownExtra){
-                if(isWalkingRight && getY() > 250 && getOneObjectAtOffset(300, 100, Platform.class) == null){
+                if(isWalkingRight && getY() > 250 && getOneObjectAtOffset(200, 100, Platform.class) == null){
                     if(getY() > 200 && getOneObjectAtOffset(400, 200, Platform.class) == null){
                         moveWorldVertical(-2);
                     }
@@ -442,7 +442,7 @@ public class Player extends GravityObject
                     }
 
                 }
-                else if(!isWalkingRight && getY() > 250 && getOneObjectAtOffset(-300, 100, Platform.class) == null){
+                else if(!isWalkingRight && getY() > 250 && getOneObjectAtOffset(-200, 100, Platform.class) == null){
                     if(getY() > 200 && getOneObjectAtOffset(-400, 200, Platform.class) == null){
                         moveWorldVertical(-2);
                     }

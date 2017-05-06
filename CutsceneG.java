@@ -28,6 +28,8 @@ public class CutsceneG extends World
             players[i].getImage().setTransparency(255);
             addObject(players[i], 100 + i*200, -200 - 100*i);
         }
+        
+        addObject(new StaticImage(16, Color.WHITE), getWidth()/2, getHeight()/2); 
 
     }
 

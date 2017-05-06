@@ -21,20 +21,20 @@ public class GreenWorld extends World
     ArrayDeque<ArrayList<GameObject>> leftStack = new ArrayDeque<ArrayList<GameObject>>();
     ArrayDeque<ArrayList<GameObject>> rightStack = new ArrayDeque<ArrayList<GameObject>>();
 
+    int generatedTerrain = 0;
+    int numMonsters = 0;
+
     public GreenWorld(){
         super(1000, 600, 1, false); 
 
-
         setPaintOrder(ParticleEffect.class, StaticImage.class, Button.class, Player.class, Platform.class, MovableObject.class, Scenery.class);
-
         prepare();
         addObject(new StaticImage(16, Color.GREEN), getWidth()/2, getHeight()/2);
     }
-   
 
     public void act(){
         frames++;
-  
+
         //spawn bubbles
         if(Greenfoot.getRandomNumber(200) == 0){
 
@@ -48,10 +48,17 @@ public class GreenWorld extends World
 
             addObject(new Bubble('r', Color.GREEN), getWidth() + 10, Greenfoot.getRandomNumber(getHeight()));
         }
-        
-        if(Greenfoot.getRandomNumber(300) == 0 && getObjects(Cloud.class).size() < 4){
+
+        if(generatedTerrain > 25 && Greenfoot.getRandomNumber(150) == 0 && numMonsters < 4){
+
+            numMonsters++;
 
             addObject(new Cloud(player), Greenfoot.getRandomNumber(800) + 100, -100);
+
+            if(numMonsters >= 4){
+                generatedTerrain = 0;
+                numMonsters = 0;
+            }
         }
 
         //check right generation
@@ -144,12 +151,10 @@ public class GreenWorld extends World
             addObject(list.get(i), x, anchor.getY() - i*100);
         }
 
-        
     }
-
     //generate 1 column
     public void genColumn(int x, int height){
-
+        generatedTerrain++;
         int y = 0;
 
         Platform obj1 = new Platform(10);
@@ -177,7 +182,7 @@ public class GreenWorld extends World
             if(i == height - 1){
                 Platform obj = new Platform(11);
                 addObject(obj, x, obj1.getY() - i*100);
-                
+
             }
             else if(height - i > Greenfoot.getRandomNumber(3)+1 && i != 0){
                 Platform obj = new Platform(12);
@@ -191,8 +196,6 @@ public class GreenWorld extends World
 
         }
 
-
-        
         
 
         if(Greenfoot.getRandomNumber(15) == 0){
@@ -216,7 +219,6 @@ public class GreenWorld extends World
             int yMax = all.get(0).getY();
             int index = 0;
 
-            
             for(int i = 0; i < all.size(); i++){
                 if(all.get(i).getX() > max && all.get(i) instanceof Platform){
                     max = all.get(i).getX();
@@ -256,7 +258,6 @@ public class GreenWorld extends World
             int yMax = all.get(0).getY();
             int index = 0;
 
-            
             for(int i = 0; i < all.size(); i++){
                 if(all.get(i).getX() < min && all.get(i) instanceof Platform){
                     min = all.get(i).getX();
@@ -338,8 +339,6 @@ public class GreenWorld extends World
             }
             rightMost = obj;
 
-            
         }
-
     }
 }

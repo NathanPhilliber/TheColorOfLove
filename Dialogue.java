@@ -28,6 +28,11 @@ public class Dialogue extends UIObject
             sound1= new GreenfootSound("sounds/text_1.mp3");
             sound2 = new GreenfootSound("sounds/text_1.mp3");
         }
+        else if(id == 13){
+            sound0 = new GreenfootSound("sounds/text_2.mp3");
+            sound1= new GreenfootSound("sounds/text_2.mp3");
+            sound2 = new GreenfootSound("sounds/text_2.mp3");
+        }
         else{
             sound0 = new GreenfootSound("sounds/text_0.mp3");
             sound1= new GreenfootSound("sounds/text_0.mp3");

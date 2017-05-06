@@ -17,6 +17,7 @@ public class FinalBoss extends Enemy
     GreenfootSound fire = new GreenfootSound("sounds/eyefire.mp3");
     GreenfootSound fire2 = new GreenfootSound("sounds/Boss_6.mp3");
     GreenfootSound roar = new GreenfootSound("sounds/roar.mp3");
+    GreenfootSound rejected = new GreenfootSound("sounds/Boss_7.mp3");
     //GreenfootSound music = new GreenfootSound("sounds/apr.mp3");
 
     public FinalBoss(Player player){
@@ -35,16 +36,26 @@ public class FinalBoss extends Enemy
             fire.setVolume(40);
             //music.playLoop();
         }
-        
+
         frames++;
-        
+
         if(frames < 200){
+            Heart heart = (Heart)getOneIntersectingObject(Heart.class);
+            if(heart != null){
+                heart.turn(180);
+                rejected.play();
+            }
+            
             return;
         }
 
-        
-
         if(damaged){
+            Heart heart = (Heart)getOneIntersectingObject(Heart.class);
+            if(heart != null){
+                heart.turn(180);
+
+            }
+
             if(counter == 2){
                 roar.play();
             }
@@ -77,6 +88,15 @@ public class FinalBoss extends Enemy
         }
         else if(colorState == 0){ //RED
             setLocation(getX(), getY() + (int)(Math.sin(frames/12)*2));
+
+            if(attackState != 2){
+                Heart heart = (Heart)getOneIntersectingObject(Heart.class);
+                if(heart != null){
+                    heart.turn(180);
+                    rejected.play();
+                }
+            }
+
             if(attackState == 0){
                 if(frames % 5 == 0){
                     fire.play();
@@ -112,6 +132,11 @@ public class FinalBoss extends Enemy
                     hittable = false;
                     //play sound
                     damaged = true;
+
+                    Heart heart = (Heart)getOneIntersectingObject(Heart.class);
+                    if(heart != null){
+                        heart.pop();
+                    }
                 }
 
                 counter++;
@@ -124,6 +149,15 @@ public class FinalBoss extends Enemy
             }
         }
         else if(colorState == 1){ //ORANGE
+
+            if(attackState != 3){
+                Heart heart = (Heart)getOneIntersectingObject(Heart.class);
+                if(heart != null){
+                    heart.turn(180);
+                    rejected.play();
+                }
+            }
+
             if(attackState == 0){
                 setLocation(getX(), getY() + 4);
                 counter++;
@@ -175,6 +209,10 @@ public class FinalBoss extends Enemy
                     hittable = false;
                     //play sound
                     damaged = true;
+                    Heart heart = (Heart)getOneIntersectingObject(Heart.class);
+                    if(heart != null){
+                        heart.pop();
+                    }
                 }
                 counter++;
                 if(counter > 135){
@@ -186,6 +224,15 @@ public class FinalBoss extends Enemy
             }
         }
         else if(colorState == 2){ //GREEN
+
+            if(attackState != 2 || attackState != 4){
+                Heart heart = (Heart)getOneIntersectingObject(Heart.class);
+                if(heart != null){
+                    heart.turn(180);
+                    rejected.play();
+                }
+            }
+
             if(attackState == 0){ //move down
                 setLocation(getX(), getY() + 1);
 
@@ -226,6 +273,10 @@ public class FinalBoss extends Enemy
                     hittable = false;
                     //play sound
                     damaged = true;
+                    Heart heart = (Heart)getOneIntersectingObject(Heart.class);
+                    if(heart != null){
+                        heart.pop();
+                    }
                 }
 
                 counter2++;
@@ -270,6 +321,10 @@ public class FinalBoss extends Enemy
                     hittable = false;
                     //play sound
                     damaged = true;
+                    Heart heart = (Heart)getOneIntersectingObject(Heart.class);
+                    if(heart != null){
+                        heart.pop();
+                    }
                 }
 
                 counter2++;
@@ -283,6 +338,15 @@ public class FinalBoss extends Enemy
             }
         }
         else if(colorState == 3){ //BLUE
+
+            if(attackState != 1){
+                Heart heart = (Heart)getOneIntersectingObject(Heart.class);
+                if(heart != null){
+                    heart.turn(180);
+                    rejected.play();
+                }
+            }
+
             setLocation(getX(), getY() + (int)(Math.sin(frames/12)*2));
             if(attackState == 0){
                 counter++;
@@ -311,6 +375,10 @@ public class FinalBoss extends Enemy
                     hittable = false;
                     //play sound
                     damaged = true;
+                    Heart heart = (Heart)getOneIntersectingObject(Heart.class);
+                    if(heart != null){
+                        heart.pop();
+                    }
                 }
 
                 counter++;
@@ -326,6 +394,15 @@ public class FinalBoss extends Enemy
         }
 
         else if(colorState == 4){ //PURPLE
+
+            if(attackState != 1){
+                Heart heart = (Heart)getOneIntersectingObject(Heart.class);
+                if(heart != null){
+                    heart.turn(180);
+                    rejected.play();
+                }
+            }
+
             if(attackState == 0){
                 counter++;
                 setLocation(getX() - 2*counter2, getY() + (int)(Math.sin(frames/12)*2));
@@ -365,6 +442,10 @@ public class FinalBoss extends Enemy
                     hittable = false;
                     //play sound
                     damaged = true;
+                    Heart heart = (Heart)getOneIntersectingObject(Heart.class);
+                    if(heart != null){
+                        heart.pop();
+                    }
                 }
 
                 counter++;
@@ -383,8 +464,8 @@ public class FinalBoss extends Enemy
             counter++;
             getImage().setTransparency(256 - counter);
             if(counter == 1){
-                world.addObject(new StaticImage(12, Color.BLACK), 500, 300);//fade
-                
+                world.addObject(new StaticImage(12, Color.WHITE), 500, 300);//fade
+
                 ((PurpleWorld)world).fadeMusic = true;
             }
 

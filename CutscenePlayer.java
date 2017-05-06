@@ -14,7 +14,7 @@ public class CutscenePlayer extends Player
     int blueHeight = 52;
     int purpleHeight = 26;
     
-    boolean isWhite = false;
+    public boolean isWhite = false;
     
     public CutscenePlayer(){
         super();
