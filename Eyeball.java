@@ -63,6 +63,19 @@ public class Eyeball extends Enemy
 
     public void checkHit(){
         Heart heart = (Heart)getOneObjectAtOffset(0, 0, Heart.class);
+        if(heart == null){
+            heart = (Heart)getOneObjectAtOffset(-25, 0, Heart.class);
+        }
+        if(heart == null){
+            heart = (Heart)getOneObjectAtOffset(25, 0, Heart.class);
+        }
+        if(heart == null){
+            heart = (Heart)getOneObjectAtOffset(0, -25, Heart.class);
+        }
+        if(heart == null){
+            heart = (Heart)getOneObjectAtOffset(0, 25, Heart.class);
+        }
+        
         if(heart != null){
             heart.pop();
             deathSound.play();

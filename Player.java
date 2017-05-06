@@ -608,13 +608,19 @@ public class Player extends GravityObject
         MouseInfo mouse = Greenfoot.getMouseInfo();
         //if(Greenfoot.isKeyDown("shift")){
 
+        if(isSwinging){
+            //System.out.println("charging" + Greenfoot.getRandomNumber(99));
+            if(frames % 22 == 0){
+                addFillColor(-1, false);
+            }
+        }
+            
         if(mouse != null && mouse.getButton() == 1 && !isSwinging){
+            //System.out.println("charging" + Greenfoot.getRandomNumber(99));
             isSwinging = true;
             shiftHeldDown = true;
 
-            if(frames % 10 == 0){
-                addFillColor(-1, false);
-            }
+            
         }
         else if(mouse != null && mouse.getButton() == 1 && isSwinging && Greenfoot.mouseClicked(null)){
             shiftHeldDown = false;

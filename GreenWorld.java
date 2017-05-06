@@ -218,7 +218,7 @@ public class GreenWorld extends World
 
             
             for(int i = 0; i < all.size(); i++){
-                if(all.get(i).getX() > max){
+                if(all.get(i).getX() > max && all.get(i) instanceof Platform){
                     max = all.get(i).getX();
                 }
             }
@@ -258,7 +258,7 @@ public class GreenWorld extends World
 
             
             for(int i = 0; i < all.size(); i++){
-                if(all.get(i).getX() < min){
+                if(all.get(i).getX() < min && all.get(i) instanceof Platform){
                     min = all.get(i).getX();
                 }
             }

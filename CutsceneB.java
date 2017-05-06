@@ -18,11 +18,12 @@ public class CutsceneB extends World
         super(1000, 600, 1); 
         prepare();
         music.setVolume(100);
+        Greenfoot.getKey();
     }
 
     public void act(){
         frames++;
-        //System.out.println(frames);
+        //System.out.println("key ["+Greenfoot.getKey()+"]");
         
         ghost.setLocation(ghost.getX(), ghost.getY() + (int)(Math.sin(frames/12)*2));
         
@@ -40,6 +41,12 @@ public class CutsceneB extends World
             text.startReveal();
         }
         
+        if(frames > 268 && frames < 400){
+            if(Greenfoot.getKey() != null || Greenfoot.mouseClicked(null)){
+                frames = 400;
+            }
+        }
+        
         if(frames == 400){
             removeObject(text);
             text = new Dialogue(1);
@@ -50,6 +57,12 @@ public class CutsceneB extends World
             text.startReveal();
         }
         
+        if(frames > 520 && frames < 630){
+            if(Greenfoot.getKey() != null || Greenfoot.mouseClicked(null)){
+                frames = 630;
+            }
+        }
+        
         if(frames == 630){
             removeObject(text);
             text = new Dialogue(2);
@@ -58,6 +71,12 @@ public class CutsceneB extends World
         if(frames == 680){
             addObject(text, 500, 500);
             text.startReveal();
+        }
+        
+        if(frames > 750 && frames < 930){
+            if(Greenfoot.getKey() != null || Greenfoot.mouseClicked(null)){
+                frames = 930;
+            }
         }
         
         if(frames == 930){
@@ -73,6 +92,7 @@ public class CutsceneB extends World
         if(frames > 1110 && frames < 1365){
             ghost.getImage().setTransparency(ghost.getImage().getTransparency() + 1);
         }
+        
         
         if(frames == 1175){
             removeObject(text);
@@ -94,6 +114,12 @@ public class CutsceneB extends World
             text.startReveal();
         }
         
+        if(frames > 1555 && frames < 1780){
+            if(Greenfoot.getKey() != null || Greenfoot.mouseClicked(null)){
+                frames = 1780;
+            }
+        }
+        
         if(frames == 1780){
             removeObject(text);
             text = new Dialogue(6);
@@ -102,6 +128,12 @@ public class CutsceneB extends World
         if(frames == 1810){
             addObject(text, 500, 500);
             text.startReveal();
+        }
+        
+        if(frames > 1880 && frames < 2105){
+            if(Greenfoot.getKey() != null || Greenfoot.mouseClicked(null)){
+                frames = 2105;
+            }
         }
         
         if(frames == 2105){
@@ -114,6 +146,12 @@ public class CutsceneB extends World
             text.startReveal();
         }
         
+        if(frames > 2205 && frames < 2390){
+            if(Greenfoot.getKey() != null || Greenfoot.mouseClicked(null)){
+                frames = 2390;
+            }
+        }
+        
         if(frames == 2390){
             removeObject(text);
             text = new Dialogue(8);
@@ -122,6 +160,12 @@ public class CutsceneB extends World
         if(frames == 2400){
             addObject(text, 500, 500);
             text.startReveal();
+        }
+        
+        if(frames > 2470 && frames < 2500){
+            if(Greenfoot.getKey() != null || Greenfoot.mouseClicked(null)){
+                frames = 2500;
+            }
         }
         
         if(frames == 2500){
@@ -134,6 +178,12 @@ public class CutsceneB extends World
             text.startReveal();
         }
         
+        if(frames > 2600 && frames < 2800){
+            if(Greenfoot.getKey() != null || Greenfoot.mouseClicked(null)){
+                frames = 2800;
+            }
+        }
+        
         if(frames == 2800){
             removeObject(text);
             text = new Dialogue(10);
@@ -144,6 +194,12 @@ public class CutsceneB extends World
             text.startReveal();
         }
         
+        if(frames > 2895 && frames < 3020){
+            if(Greenfoot.getKey() != null || Greenfoot.mouseClicked(null)){
+                frames = 3020;
+            }
+        }
+        
         if(frames == 3020){
             removeObject(text);
             text = new Dialogue(11);
@@ -152,6 +208,12 @@ public class CutsceneB extends World
         if(frames == 3050){
             addObject(text, 500, 500);
             text.startReveal();
+        }
+        
+        if(frames > 3120 && frames < 3300){
+            if(Greenfoot.getKey() != null || Greenfoot.mouseClicked(null)){
+                frames = 3300;
+            }
         }
         
         if(frames == 3300){

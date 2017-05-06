@@ -3,7 +3,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.ArrayDeque;
 
-
 public class RedWorld extends World
 {
 
@@ -16,34 +15,36 @@ public class RedWorld extends World
     int heightLeft = 3;
     int targetHeightLeft = heightRight;
     int frames = -1;
-    
+
     ArrayDeque<ArrayList<GameObject>> leftStack = new ArrayDeque<ArrayList<GameObject>>();
     ArrayDeque<ArrayList<GameObject>> rightStack = new ArrayDeque<ArrayList<GameObject>>();
-    
+
+    int generatedTerrain = 0;
+
     public RedWorld()
     {    
 
         super(1000, 600, 1, false); 
         setPaintOrder(ParticleEffect.class, StaticImage.class, Button.class, Player.class, Platform.class, MovableObject.class, Scenery.class);
-        
+
         prepare();
         addObject(new StaticImage(2), getWidth()/2, getHeight()/2);
     }
 
     public void act(){
         frames++;
-        
-        //spawn bubbles
-        if(Greenfoot.getRandomNumber(200) == 0){
 
+        //spawn bubbles
+        if(Greenfoot.getRandomNumber(200) == 0 && generatedTerrain > 5){
+            generatedTerrain--;
             addObject(new Bubble('u'), Greenfoot.getRandomNumber(getWidth()), -10);
         }
-        if(Greenfoot.getRandomNumber(200) == 0){
-
+        if(Greenfoot.getRandomNumber(200) == 0 && generatedTerrain > 5){
+            generatedTerrain--;
             addObject(new Bubble('l'), -10, Greenfoot.getRandomNumber(getHeight()));
         }
-        if(Greenfoot.getRandomNumber(200) == 0){
-
+        if(Greenfoot.getRandomNumber(200) == 0 && generatedTerrain > 5){
+            generatedTerrain--;
             addObject(new Bubble('r'), getWidth() + 10, Greenfoot.getRandomNumber(getHeight()));
         }
 
@@ -82,10 +83,8 @@ public class RedWorld extends World
             else{
                 heightLeft = leftStack.peekFirst().size();
             }
-            
 
             genColumn(leftMost.getX()-100, heightLeft);
-
             if(frames > 10 && rightMost != null && rightMost.getX() > getWidth() + 600){
                 removeEdgeColumn(true);
             }
@@ -116,7 +115,7 @@ public class RedWorld extends World
         }
 
     }
-    
+
     //load a column from appropriate stack
     public void loadColumn(int x){
         ArrayList<GameObject> list = null;
@@ -134,20 +133,19 @@ public class RedWorld extends World
             //System.out.println("Right Size: " + list.size());
             rightMost = list.get(0);
         }
-        
+
         for(int i = 0; i < list.size(); i++){
             addObject(list.get(i), x, anchor.getY() - i*100);
         }
-        
-        
+
         
     }
-    
+
     //generate 1 column
     public void genColumn(int x, int height){
-        
+        generatedTerrain++;
         int y = 0;
-        
+
         Platform obj1 = new Platform();
         if(x < 0){
             if(leftStack.size() > 0){
@@ -166,10 +164,10 @@ public class RedWorld extends World
             y = rightMost.getY();
             rightMost = obj1;
         }
-        
+
         addObject(obj1, x, y);
         for(int i = 1; i < height; i++){
-            
+
             if(i == height - 1){
                 Platform obj = new Platform(1);
                 addObject(obj, x, obj1.getY() - i*100);
@@ -184,36 +182,35 @@ public class RedWorld extends World
             else{
                 Platform obj = new Platform();
                 addObject(obj, x, obj1.getY() - i*100);
-                
+
             }
-            
+
         }
-        
-        if(Greenfoot.getRandomNumber(15) == 0){
+
+        if(Greenfoot.getRandomNumber(13) == 0){
             Goop goop = new Goop();
             addObject(goop, x, obj1.getY() - height*100 - 100);
-            
+
         }
         if(Greenfoot.getRandomNumber(5) == 0){
             Flower flower = new Flower();
             addObject(flower, x, obj1.getY() - height*100);
-            
+
         }        
     }
 
     public void removeEdgeColumn(boolean right){
         List<GameObject> all = getObjects(GameObject.class);
         ArrayList<GameObject> newList = new ArrayList<GameObject>();
-        
+
         if(right){
             int max = all.get(0).getX();
             int yMax = all.get(0).getY();
             int index = 0;
 
             
-            
             for(int i = 0; i < all.size(); i++){
-                if(all.get(i).getX() > max){
+                if(all.get(i).getX() > max && all.get(i) instanceof Platform){
                     max = all.get(i).getX();
                 }
             }
@@ -243,24 +240,23 @@ public class RedWorld extends World
             }
 
             rightMost = all.get(index);
-            
+
         }
 
         else{
             int min = all.get(0).getX();
             int yMax = all.get(0).getY();
             int index = 0;
-            
-            
+
             
             for(int i = 0; i < all.size(); i++){
-                if(all.get(i).getX() < min){
+                if(all.get(i).getX() < min && all.get(i) instanceof Platform){
                     min = all.get(i).getX();
                 }
             }
             //System.out.println(all.size() + " elements");
             for(int i = 0; i < all.size(); i++){
-                
+
                 if(all.get(i).getX() == min + 100){
                     if(all.get(i).getY() > yMax){
                         yMax = all.get(i).getY();
@@ -286,11 +282,11 @@ public class RedWorld extends World
         }
 
     }
-    
+
     private void sortList(ArrayList<GameObject> list){
-       
+
         //System.out.println("Sorting list of size " + list.size());
-        
+
         for(int i = 0; i < list.size(); i++){
             for(int j = i; j < list.size(); j++){
                 if(list.get(j).getY() > list.get(i).getY()){
@@ -309,9 +305,9 @@ public class RedWorld extends World
             //System.out.println("::" +list.get(i).getY());
             removeObject(list.get(i));
         }
-        
+
         //System.out.println("Added list of size " + list.size());
-        
+
     }
 
     private void prepare()
