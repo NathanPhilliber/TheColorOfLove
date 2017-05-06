@@ -84,6 +84,14 @@ public class Player extends GravityObject
 
     public int paintId = 0;
     StaticImage critical = new StaticImage(18);
+
+    public FinalBoss boss;
+    
+    public boolean isDead = false;
+    boolean criticalUp = true;
+    int deadFrames = 0;
+    public boolean hideCritical = false;
+
     public Player(){
         super();
         int index = 0;
@@ -178,18 +186,14 @@ public class Player extends GravityObject
         addFillColor(delta, true);
     }
 
-    boolean isDead = false;
-    boolean criticalUp = true;
-    int deadFrames = 0;
-    public boolean hideCritical = false;
+    
     public void checkDead(){
-        
-        
+
         if(yVel > 100 && !isDead){
             isDead = true;
             deathSound.play();
             world.addObject(new StaticImage(12, Color.BLACK), 500, 300);
-            
+
         }
 
         if (curPaintHeight <= 0 && !isDead && !hideCritical){
@@ -358,6 +362,26 @@ public class Player extends GravityObject
         }
     }
 
+    public void moveWorldVertical(int delta){
+        List<GameObject> objs = world.getObjects(GameObject.class);
+        for(int i = 0; i < objs.size(); i++){
+            GameObject cur = objs.get(i);
+            if(cur.sideScroll){
+                cur.setLocation(cur.getX(), cur.getY() + delta);
+            }
+        }
+    }
+
+    public void moveWorldHorizontal(int delta){
+        List<GameObject> objs = world.getObjects(GameObject.class);
+        for(int i = 0; i < objs.size(); i++){
+            GameObject cur = objs.get(i);
+            if(cur.sideScroll){
+                cur.setLocation(cur.getX() + delta, cur.getY());
+            }
+        }
+    }
+
     public void moveWorldDown(){
 
         List<GameObject> objs = world.getObjects(GameObject.class);
@@ -377,6 +401,8 @@ public class Player extends GravityObject
         critical.getImage().setTransparency(0);
     }
 
+    int playerStillY = 0;
+    boolean goDownExtra = true;
     public void act() 
     {
         super.act();
@@ -385,11 +411,13 @@ public class Player extends GravityObject
             updateMovement();
             advanceAnimation();
 
-            if(frames % 2 == 0 && Greenfoot.isKeyDown("f")){
-                addFillColor(1);
-            }
-            if(frames % 2 == 0 && Greenfoot.isKeyDown("g")){
-                addFillColor(-1);
+            if(Greenfoot.isKeyDown("i")){
+                if(frames % 2 == 0 && Greenfoot.isKeyDown("j")){
+                    addFillColor(1);
+                }
+                if(frames % 2 == 0 && Greenfoot.isKeyDown("l")){
+                    addFillColor(-1);
+                }
             }
 
             updatePaintHeight();
@@ -397,8 +425,45 @@ public class Player extends GravityObject
             if(getOneObjectAtOffset(-20,35, Goop.class) != null || getOneObjectAtOffset(20,35, Goop.class) != null){
                 addFillColor(-1);
             }
+
+            smartCameraMove();
         }
         checkDead();
+    }
+    
+    public void smartCameraMove(){
+        if(goDownExtra){
+                if(isWalkingRight && getY() > 250 && getOneObjectAtOffset(300, 100, Platform.class) == null){
+                    if(getY() > 200 && getOneObjectAtOffset(400, 200, Platform.class) == null){
+                        moveWorldVertical(-2);
+                    }
+                    else{
+                        moveWorldVertical(-1);
+                    }
+
+                }
+                else if(!isWalkingRight && getY() > 250 && getOneObjectAtOffset(-300, 100, Platform.class) == null){
+                    if(getY() > 200 && getOneObjectAtOffset(-400, 200, Platform.class) == null){
+                        moveWorldVertical(-2);
+                    }
+                    else{
+                        moveWorldVertical(-1);
+                    }
+                }
+            }
+            else{
+                if(yVel == 0 && getY() > 100 && getOneObjectAtOffset(150, 100, Platform.class) == null && getOneObjectAtOffset(-150, 100, Platform.class) == null){
+
+                    moveWorldVertical(-1);
+
+                }
+                if(isWalkingRight && getX() > 250 && getY() < boss.getY() && getX() < boss.getX()){
+                    moveWorldHorizontal(-1);
+                }
+                else if(!isWalkingRight && getX() < 750 && getY() < boss.getY() && getX() > boss.getX()){
+                    moveWorldHorizontal(1);
+                }
+            }
     }
 
     public void paintSprites(int height, Color color, boolean up){

@@ -25,7 +25,7 @@ public class GreenWorld extends World
         super(1000, 600, 1, false); 
 
 
-        setPaintOrder(ParticleEffect.class, StaticImage.class, Player.class, Platform.class, MovableObject.class, Scenery.class);
+        setPaintOrder(ParticleEffect.class, StaticImage.class, Button.class, Player.class, Platform.class, MovableObject.class, Scenery.class);
 
         prepare();
         addObject(new StaticImage(16, Color.GREEN), getWidth()/2, getHeight()/2);

@@ -19,21 +19,29 @@ public class OrangeWorld extends World
     Player player;
     
     public boolean fadeMusic = false;
+    
+    int generatedTerrain = 0;
 
     ArrayDeque<ArrayList<GameObject>> leftStack = new ArrayDeque<ArrayList<GameObject>>();
     ArrayDeque<ArrayList<GameObject>> rightStack = new ArrayDeque<ArrayList<GameObject>>();
+    
+    int numMonsters = 0;
 
     public OrangeWorld(){
         this(null);
     }
 
+    public OrangeWorld(boolean playMusic){
+        this(new GreenfootSound("sounds/Hurt_0.mp3"));
+    }
+    
     public OrangeWorld(GreenfootSound music)
     {    
         super(1000, 600, 1, false); 
 
         this.music = music;
 
-        setPaintOrder(ParticleEffect.class, StaticImage.class, Player.class, Platform.class, MovableObject.class, Scenery.class);
+        setPaintOrder(ParticleEffect.class, StaticImage.class, Button.class, Player.class, Platform.class, MovableObject.class, Scenery.class);
 
         prepare();
         addObject(new StaticImage(16, Color.ORANGE), getWidth()/2, getHeight()/2);
@@ -42,6 +50,9 @@ public class OrangeWorld extends World
     int vol = 100;
     public void act(){
         frames++;
+        
+        //System.out.println("gen: " + generatedTerrain + " eyes: " + numMonsters);
+        
         if(frames == 1){
             if(music == null){
                 music = new GreenfootSound("sounds/comeandfindme.mp3");
@@ -55,22 +66,27 @@ public class OrangeWorld extends World
         }
         
         //spawn bubbles
-        if(Greenfoot.getRandomNumber(200) == 0){
+        if(Greenfoot.getRandomNumber(200) == 0 && generatedTerrain > 6){
 
             addObject(new Bubble('u', Color.ORANGE), Greenfoot.getRandomNumber(getWidth()), -10);
         }
-        if(Greenfoot.getRandomNumber(200) == 0){
+        if(Greenfoot.getRandomNumber(200) == 0 && generatedTerrain > 6){
 
             addObject(new Bubble('l', Color.ORANGE), -10, Greenfoot.getRandomNumber(getHeight()));
         }
-        if(Greenfoot.getRandomNumber(200) == 0){
+        if(Greenfoot.getRandomNumber(200) == 0 && generatedTerrain > 6){
 
             addObject(new Bubble('r', Color.ORANGE), getWidth() + 10, Greenfoot.getRandomNumber(getHeight()));
         }
         
-        if(Greenfoot.getRandomNumber(200) == 0 && getObjects(Eyeball.class).size() < 3){
-
+        if(generatedTerrain > 25 && Greenfoot.getRandomNumber(175) == 0 && numMonsters < 2){
+            numMonsters++;
             addObject(new Eyeball(), Greenfoot.getRandomNumber(800) + 100, -100);
+            
+            if(numMonsters >= 2){
+                generatedTerrain = 0;
+                numMonsters = 0;
+            }
         }
 
         //check right generation
@@ -169,6 +185,8 @@ public class OrangeWorld extends World
     //generate 1 column
     public void genColumn(int x, int height){
 
+        generatedTerrain++;
+        
         int y = 0;
 
         Platform obj1 = new Platform(10);

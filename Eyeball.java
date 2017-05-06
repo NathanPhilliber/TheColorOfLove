@@ -14,7 +14,7 @@ public class Eyeball extends Enemy
     GreenfootSound moveSound = new GreenfootSound("sounds/eyeballmove.mp3");
     GreenfootSound deathSound = new GreenfootSound("sounds/eyeballdeath.mp3");
     int playerReward = 25;
-    
+
     public Eyeball(){
         super();
         nextPhase = Greenfoot.getRandomNumber(300) + 180;
@@ -35,17 +35,20 @@ public class Eyeball extends Enemy
         super.act();
         frames++;
 
-        if(goSweep){
-            setLocation(getX() + sweepDir*8, getY());
-            if(getX() <= 100 || getX() >= 900){
-                goSweep = false;
+        if(player.isDead == false){
+            if(goSweep){
+                setLocation(getX() + sweepDir*8, getY());
+                if(getX() <= 100 || getX() >= 900){
+                    goSweep = false;
+                }
             }
-        }
-        else{
-            checkPhase();
-        }
+            else{
+                checkPhase();
+            }
 
-        checkHit();
+            checkHit();
+        }
+        
     }   
 
     public void checkPhase(){
@@ -63,12 +66,17 @@ public class Eyeball extends Enemy
         if(heart != null){
             heart.pop();
             deathSound.play();
-            world.removeObject(this);
+
             player.addFillColor(playerReward);
+            world.removeObject(this);
         }
     }
 
     public void updateFalling(){ //override gravity
+        if(isTouching(Player.class)){
+            setLocation(getX(), getY() - 5);
+            player.addFillColor(-1);
+        }
         if(getY() > 390){
             setLocation(getX(), getY() - 1);
         }
@@ -78,24 +86,26 @@ public class Eyeball extends Enemy
         else{
             setLocation(getX(), getY() + (int)(Math.sin(frames/15)*2));
 
-            if(goSweep){
-                if(frames % 12 == 0){
-                    world.addObject(new EyeBullet(player), getX(), getY());
-                    fire.play();
-                }
-            }
-            else{
-
-                if(frames % 7 == 0){
-                    shots++;
-                    if(shots <= 10){
+            if(player.isDead == false){
+                if(goSweep){
+                    if(frames % 12 == 0){
                         world.addObject(new EyeBullet(player), getX(), getY());
                         fire.play();
                     }
-                    else if (shots > 50){
-                        shots  = 0;
-                    }
+                }
+                else{
 
+                    if(frames % 7 == 0){
+                        shots++;
+                        if(shots <= 10){
+                            world.addObject(new EyeBullet(player), getX(), getY());
+                            fire.play();
+                        }
+                        else if (shots > 50){
+                            shots  = 0;
+                        }
+
+                    }
                 }
             }
 

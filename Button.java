@@ -7,6 +7,7 @@ public class Button extends UIObject
 
     boolean updateImg = false;
     GreenfootSound ding = new GreenfootSound("sounds/Select.wav");
+    GreenfootSound hover = new GreenfootSound("sounds/buttonhover.mp3");
     boolean pressed = false;
     int framesAfter = 0;
 
@@ -143,6 +144,7 @@ public class Button extends UIObject
             }
             if(!updateImg){
                 colorImage(getImage(), new Color(255, 100, 100));
+                hover.play();
                 updateImg = true;
             }
         }

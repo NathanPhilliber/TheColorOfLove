@@ -16,6 +16,7 @@ public class FinalBoss extends Enemy
 
     GreenfootSound fire = new GreenfootSound("sounds/eyefire.mp3");
     GreenfootSound fire2 = new GreenfootSound("sounds/Boss_6.mp3");
+    GreenfootSound roar = new GreenfootSound("sounds/roar.mp3");
     //GreenfootSound music = new GreenfootSound("sounds/apr.mp3");
 
     public FinalBoss(Player player){
@@ -44,6 +45,9 @@ public class FinalBoss extends Enemy
         
 
         if(damaged){
+            if(counter == 2){
+                roar.play();
+            }
             counter++;
             List<GameObject> objs = world.getObjects(GameObject.class);
 

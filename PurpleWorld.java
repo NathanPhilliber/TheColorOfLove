@@ -8,9 +8,10 @@ public class PurpleWorld extends World
     GreenfootSound music;
     int vol = 100;
     public boolean fadeMusic = false;
-    
+
     public PurpleWorld(){
         this(null);
+
     }
 
     public PurpleWorld(GreenfootSound music)
@@ -34,13 +35,13 @@ public class PurpleWorld extends World
                 music = new GreenfootSound("sounds/apr.mp3");
                 music.playLoop();   //PUT THIS BAC
             }
-            
+
         }
-        
+
         if(fadeMusic && vol > 0){
             music.setVolume(vol--);
         }
-        
+
         if(frames == 10){
             player.addFillColor(155);
         }
@@ -66,13 +67,25 @@ public class PurpleWorld extends World
         Platform platform6 = new Platform();
         addObject(platform6,746,429);
         platform6.setLocation(755,431);
-
+        
+        
+        
+        
+        
         player = new Player();
         player.paintColor = Color.MAGENTA;
         player.paintId = 4;
+        player.goDownExtra = false;
+        
+        FinalBoss finalboss = new FinalBoss(player);
+        addObject(finalboss,515,67);
+        
+        player.boss = finalboss;
 
         addObject(player,344,177);
 
+        
+        
         player.setLocation(518,190);
         Platform platform7 = new Platform();
         addObject(platform7,858,321);
@@ -97,8 +110,6 @@ public class PurpleWorld extends World
         platform12.setLocation(1058,129);
         addObject(new Platform(), -55, 121);
 
-        FinalBoss finalboss = new FinalBoss(player);
-        addObject(finalboss,515,67);
 
         Platform platform13 = new Platform();
         addObject(platform13,221,70);
@@ -107,5 +118,12 @@ public class PurpleWorld extends World
         Platform platform14 = new Platform();
         addObject(platform14,795,69);
         platform14.setLocation(796,-80);
+        Platform platform15 = new Platform();
+        addObject(platform15,149,498);
+        platform15.setLocation(149,524);
+        Platform platform16 = new Platform();
+        addObject(platform16,802,230);
+        platform16.setLocation(825,482);
+        platform16.setLocation(857,533);
     }
 }

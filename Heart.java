@@ -62,50 +62,52 @@ public class Heart extends MovableObject{
 
     public void pop(){
         if(!dead){
-            if(charge >= 100){
-                Heart heart = new Heart('l', 10);
-                heart.xVel = 2;
-                heart.yVel = 2;
-                world.addObject(heart, getX(), getY());
-
-                heart = new Heart('l', 10);
-                heart.xVel = -2;
-                heart.yVel = 2;
-                world.addObject(heart, getX(), getY());
-
-                heart = new Heart('l', 10);
-                heart.xVel = 2;
-                heart.yVel = -2;
-                world.addObject(heart, getX(), getY());
-
-                heart = new Heart('l', 10);
-                heart.xVel = -2;
-                heart.yVel = -2;
-                world.addObject(heart, getX(), getY());
-
-                //
-                if(charge > 100){
-                    heart = new Heart('l', 10);
-                    heart.xVel = 0;
-                    heart.yVel = 5;
+            try{
+                if(charge >= 100){
+                    Heart heart = new Heart('l', 10);
+                    heart.xVel = 2;
+                    heart.yVel = 2;
                     world.addObject(heart, getX(), getY());
 
                     heart = new Heart('l', 10);
-                    heart.xVel = 5;
-                    heart.yVel = 0;
+                    heart.xVel = -2;
+                    heart.yVel = 2;
                     world.addObject(heart, getX(), getY());
 
                     heart = new Heart('l', 10);
-                    heart.xVel = -5;
-                    heart.yVel = 0;
+                    heart.xVel = 2;
+                    heart.yVel = -2;
                     world.addObject(heart, getX(), getY());
 
                     heart = new Heart('l', 10);
-                    heart.xVel = 0;
-                    heart.yVel = -5;
+                    heart.xVel = -2;
+                    heart.yVel = -2;
                     world.addObject(heart, getX(), getY());
+
+                    //
+                    if(charge > 100){
+                        heart = new Heart('l', 10);
+                        heart.xVel = 0;
+                        heart.yVel = 5;
+                        world.addObject(heart, getX(), getY());
+
+                        heart = new Heart('l', 10);
+                        heart.xVel = 5;
+                        heart.yVel = 0;
+                        world.addObject(heart, getX(), getY());
+
+                        heart = new Heart('l', 10);
+                        heart.xVel = -5;
+                        heart.yVel = 0;
+                        world.addObject(heart, getX(), getY());
+
+                        heart = new Heart('l', 10);
+                        heart.xVel = 0;
+                        heart.yVel = -5;
+                        world.addObject(heart, getX(), getY());
+                    }
                 }
-            }
+            } catch(NullPointerException e){} //Sometimes null if full charged heart on enemy
         }
 
         dead = true;
@@ -120,11 +122,10 @@ public class Heart extends MovableObject{
             framesD = 1;
             xVel += Math.signum(xVel);
         }
-        
+
         if(isTouching(Platform.class)){
             dead = true;
         }
-        
 
         if(!isOnscreen()){
             dead = true;
