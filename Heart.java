@@ -6,6 +6,7 @@ public class Heart extends MovableObject{
     int frames = 0;
 
     boolean dead = false;
+    boolean useMouse = true;
 
     GreenfootSound kiss0Sound = new GreenfootSound("sounds/Kiss_0.wav");
     GreenfootSound kiss1Sound = new GreenfootSound("sounds/Kiss_1.wav");
@@ -14,23 +15,23 @@ public class Heart extends MovableObject{
 
     public Heart(char dir, int charge, double vel){
         this(dir, charge);
-        //yVel = vel;
+
         yVel = 0;
         xVel = 0;
     }
 
     public void firstTime(){
         super.firstTime();
-        MouseInfo mouse = Greenfoot.getMouseInfo();
-        if(mouse != null && mouse.getX() < getX()){
-            //xVel = -5;
-
-            getImage().mirrorVertically();
-            //System.out.println('l');
+        if(useMouse){
+            MouseInfo mouse = Greenfoot.getMouseInfo();
+            if(mouse != null && mouse.getX() < getX()){
+                getImage().mirrorVertically();
+            }
+            if(mouse != null){
+                turnTowards(mouse.getX(), mouse.getY());
+            }
         }
-        if(mouse != null){
-            turnTowards(mouse.getX(), mouse.getY());
-        }
+        
     }
 
     public Heart(char dir, int charge){
@@ -115,6 +116,7 @@ public class Heart extends MovableObject{
 
     public void act(){
         super.act();
+        //System.out.println(getRotation());
         framesD++;
         frames++;
         move(charge/5);

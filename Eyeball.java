@@ -13,7 +13,7 @@ public class Eyeball extends Enemy
     GreenfootSound fire = new GreenfootSound("sounds/eyefire.mp3");
     GreenfootSound moveSound = new GreenfootSound("sounds/eyeballmove.mp3");
     GreenfootSound deathSound = new GreenfootSound("sounds/eyeballdeath.mp3");
-    int playerReward = 25;
+    int playerReward = 35;
 
     public Eyeball(){
         super();

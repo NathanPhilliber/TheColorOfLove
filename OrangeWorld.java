@@ -17,14 +17,17 @@ public class OrangeWorld extends World
     int frames = -1;
 
     Player player;
-    
+
     public boolean fadeMusic = false;
-    
+
+    int sign1Offset = 10;
+    int sign2Offset = 55;
+
     int generatedTerrain = 0;
 
     ArrayDeque<ArrayList<GameObject>> leftStack = new ArrayDeque<ArrayList<GameObject>>();
     ArrayDeque<ArrayList<GameObject>> rightStack = new ArrayDeque<ArrayList<GameObject>>();
-    
+
     int numMonsters = 0;
 
     public OrangeWorld(){
@@ -34,14 +37,14 @@ public class OrangeWorld extends World
     public OrangeWorld(boolean playMusic){
         this(new GreenfootSound("sounds/Hurt_0.mp3"));
     }
-    
+
     public OrangeWorld(GreenfootSound music)
     {    
         super(1000, 600, 1, false); 
 
         this.music = music;
 
-        setPaintOrder(ParticleEffect.class, StaticImage.class, Button.class, Player.class, Platform.class, MovableObject.class, Scenery.class);
+        setPaintOrder(ParticleEffect.class, StaticImage.class, Button.class,Enemy.class, Dialogue.class,  Player.class, Platform.class, MovableObject.class, Scenery.class);
 
         prepare();
         addObject(new StaticImage(16, Color.ORANGE), getWidth()/2, getHeight()/2);
@@ -50,21 +53,21 @@ public class OrangeWorld extends World
     int vol = 100;
     public void act(){
         frames++;
-        
+
         //System.out.println("gen: " + generatedTerrain + " eyes: " + numMonsters);
-        
+
         if(frames == 1){
             if(music == null){
                 music = new GreenfootSound("sounds/comeandfindme.mp3");
                 music.playLoop();   //PUT THIS BAC
             }
-            
+
         }
-        
+
         if(fadeMusic && vol > 0){
             music.setVolume(vol--);
         }
-        
+
         //spawn bubbles
         if(Greenfoot.getRandomNumber(200) == 0 && generatedTerrain > 6){
 
@@ -78,11 +81,11 @@ public class OrangeWorld extends World
 
             addObject(new Bubble('r', Color.ORANGE), getWidth() + 10, Greenfoot.getRandomNumber(getHeight()));
         }
-        
+
         if(generatedTerrain > 25 && Greenfoot.getRandomNumber(175) == 0 && numMonsters < 2){
             numMonsters++;
             addObject(new Eyeball(), Greenfoot.getRandomNumber(800) + 100, -100);
-            
+
             if(numMonsters >= 2){
                 generatedTerrain = 0;
                 numMonsters = 0;
@@ -179,14 +182,12 @@ public class OrangeWorld extends World
             addObject(list.get(i), x, anchor.getY() - i*100);
         }
 
-        
     }
-
     //generate 1 column
     public void genColumn(int x, int height){
 
         generatedTerrain++;
-        
+
         int y = 0;
 
         Platform obj1 = new Platform(10);
@@ -207,6 +208,7 @@ public class OrangeWorld extends World
             y = rightMost.getY();
             rightMost = obj1;
         }
+
 
         addObject(obj1, x, y);
         for(int i = 1; i < height; i++){
@@ -230,7 +232,17 @@ public class OrangeWorld extends World
 
         }
 
-        if(Greenfoot.getRandomNumber(8) == 0){
+        if(sign1Offset-- == 0){
+
+            
+            addObject(new Sign(1), x, obj1.getY() - (int)(height*100));
+        }
+        else if(sign2Offset-- == 0){
+            
+            addObject(new Sign(2), x, obj1.getY() - (int)(height*100));
+        }
+
+        else if(Greenfoot.getRandomNumber(8) == 0){
             addObject(new StaticImage(19), x, obj1.getY() - (int)(height*100));
         }
         else{
@@ -242,11 +254,7 @@ public class OrangeWorld extends World
             //addObject(goop, x, obj1.getY() - height*100 - 100);
 
         }
-        if(Greenfoot.getRandomNumber(5) == 0){
-            Flower flower = new Flower();
-            //addObject(flower, x, obj1.getY() - height*100);
 
-        }        
     }
 
     public void removeEdgeColumn(boolean right){
@@ -258,7 +266,6 @@ public class OrangeWorld extends World
             int yMax = all.get(0).getY();
             int index = 0;
 
-            
             for(int i = 0; i < all.size(); i++){
                 if(all.get(i).getX() > max && all.get(i) instanceof Platform){
                     max = all.get(i).getX();
@@ -298,7 +305,6 @@ public class OrangeWorld extends World
             int yMax = all.get(0).getY();
             int index = 0;
 
-            
             for(int i = 0; i < all.size(); i++){
                 if(all.get(i).getX() < min && all.get(i) instanceof Platform){
                     min = all.get(i).getX();

@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.ArrayDeque;
 
-public class RedWorld extends World
+public class PreWorld extends World
 {
 
     GameObject rightMost;
@@ -19,38 +19,57 @@ public class RedWorld extends World
     ArrayDeque<ArrayList<GameObject>> leftStack = new ArrayDeque<ArrayList<GameObject>>();
     ArrayDeque<ArrayList<GameObject>> rightStack = new ArrayDeque<ArrayList<GameObject>>();
 
-    int sign1Offset = 20;
-    int sign2Offset = 55;
-    
     int generatedTerrain = 0;
-
-    public RedWorld()
+    
+    Player player;
+    
+    int moved = 0;
+    int lastDisplay = 0;
+    Dialogue text = null;
+    
+    public PreWorld()
     {    
 
         super(1000, 600, 1, false); 
-        setPaintOrder(ParticleEffect.class, StaticImage.class, Button.class,Enemy.class, Dialogue.class,  Player.class, Platform.class, MovableObject.class, Scenery.class);
+        setPaintOrder(ParticleEffect.class, StaticImage.class, Dialogue.class, Button.class, Player.class, Platform.class, MovableObject.class, Scenery.class);
 
         prepare();
-        //addObject(new StaticImage(2), getWidth()/2, getHeight()/2);
+        addObject(new StaticImage(16, Color.RED), getWidth()/2, getHeight()/2);
+
     }
 
     public void act(){
+        if(frames == 0){
+            player.addFillColor(-25);
+            player.hideCritical = true;
+        }
         frames++;
-
+        
+        if(moved < 0 && frames - lastDisplay > 600){
+            addObject(text = new Dialogue(16), 500, 90);
+            lastDisplay = frames;
+        }
+        if(text != null && frames - lastDisplay > 210){
+            removeObject(text);
+            text = null;
+            lastDisplay = frames;
+            
+        }
+        
+        //System.out.println(moved);
         //spawn bubbles
-        if(Greenfoot.getRandomNumber(200) == 0 && generatedTerrain > 5){
-            generatedTerrain--;
-            addObject(new Bubble('u'), Greenfoot.getRandomNumber(getWidth()), -10);
-        }
-        if(Greenfoot.getRandomNumber(200) == 0 && generatedTerrain > 5){
-            generatedTerrain--;
-            addObject(new Bubble('l'), -10, Greenfoot.getRandomNumber(getHeight()));
-        }
-        if(Greenfoot.getRandomNumber(200) == 0 && generatedTerrain > 5){
-            generatedTerrain--;
-            addObject(new Bubble('r'), getWidth() + 10, Greenfoot.getRandomNumber(getHeight()));
+        
+        if(player.getX() > 1000){
+            Greenfoot.setWorld(new CutsceneC());
         }
 
+        if(moved > 15){
+            player.ignoreBorders = true;
+        }
+        if(player.getX() < 200){
+            player.ignoreBorders = false;
+        }
+        
         //check right generation
         if(rightMost.getX() < getWidth() + 500){
 
@@ -98,11 +117,24 @@ public class RedWorld extends World
     public int getRandomHeight(int height, int targetHeight){
         int gradient = 0;
         int prob = Greenfoot.getRandomNumber(101);
+        
+        if(moved < 0){
+           return Math.abs(moved + Greenfoot.getRandomNumber(5) + 3);
 
-        if(prob >=60 && prob < 90){ //1 change
+        }
+        
+        if(moved == 10){
+            
+            return 3;
+        }
+        else if(moved >= 11){
+            return 5;
+        }
+
+        if(prob >=90 && prob < 97){ //1 change
             gradient = 1;
         }
-        else if(prob >= 90){ //2 change
+        else if(prob >= 97){ //2 change
             gradient = 2;
         }
 
@@ -146,10 +178,12 @@ public class RedWorld extends World
     public void genColumn(int x, int height){
         generatedTerrain++;
         int y = 0;
-
+        
         Platform obj1 = new Platform();
         if(x < 0){
+            moved--;
             if(leftStack.size() > 0){
+  
                 //System.out.println("++++Loading Left");
                 loadColumn(x);
                 return;
@@ -157,7 +191,9 @@ public class RedWorld extends World
             y = leftMost.getY();
             leftMost = obj1;
         }else{
+            moved++;
             if(rightStack.size() > 0){
+
                 //System.out.println("++++Loading Right");                
                 loadColumn(x);
                 return;
@@ -173,7 +209,7 @@ public class RedWorld extends World
                 Platform obj = new Platform(1);
                 addObject(obj, x, obj1.getY() - i*100);
                 if(Greenfoot.getRandomNumber(10) == 0){
-                    addObject(new FakePlatform(), x, obj1.getY()- i*100 - Greenfoot.getRandomNumber(4)*100);
+                    addObject(new FakePlatform(), x, obj1.getY() - i*100 - Greenfoot.getRandomNumber(4)*100);
                 }
             }
             else if(height - i > Greenfoot.getRandomNumber(3)+1 && i != 0){
@@ -187,20 +223,11 @@ public class RedWorld extends World
             }
 
         }
-
-        if(Greenfoot.getRandomNumber(13) == 0){
-            Goop goop = new Goop();
-            addObject(goop, x, obj1.getY() - height*100 - 100);
-
-        }
         
-        if(sign1Offset-- == 0){
-            addObject(new Sign(4), x, obj1.getY() - height*100);
+        if(moved == 3 && getObjects(Sign.class).size() == 0){
+            addObject(new Sign(0), x, obj1.getY() - height*100);
         }
-        else if(sign2Offset-- == 0){
-            addObject(new Sign(5), x, obj1.getY() - height*100);
-        }
-        else if(Greenfoot.getRandomNumber(5) == 0){
+        else if(moved < 20 && Greenfoot.getRandomNumber(5) == 0){
             Flower flower = new Flower();
             addObject(flower, x, obj1.getY() - height*100);
 
@@ -315,23 +342,20 @@ public class RedWorld extends World
         //System.out.println("Added list of size " + list.size());
 
     }
+    
 
     private void prepare()
     {
 
-        addObject(new Player(), 260, 470);
-
-        for(int i = 0; i < 12; i++){
+        addObject(player = new Player(), 260, 470);
+        
+        for(int i = 0; i < 6; i++){
             Platform obj = new Platform(1);
 
-            if(i < 4){
-                addObject(obj, i*100, 600);
-            }
-            int id = 0;
-            if(i >= 4){
-                id = 1;
-            }
-            obj = new Platform(id);
+            
+            addObject(obj, i*100, 600);
+            
+            obj = new Platform();
             addObject(obj, i*100, 700);
 
             obj = new Platform();

@@ -8,7 +8,7 @@ public class GreenWorld extends World
     public GreenfootSound music;
     GameObject rightMost;
     GameObject leftMost;
-
+    
     int heightRight = 3;
     int targetHeightRight = heightRight;
 
@@ -24,17 +24,32 @@ public class GreenWorld extends World
     int generatedTerrain = 0;
     int numMonsters = 0;
 
+    int sign1Offset = 8;
+
     public GreenWorld(){
+        this(null);
+    }
+
+    public GreenWorld(GreenfootSound music){
         super(1000, 600, 1, false); 
 
-        setPaintOrder(ParticleEffect.class, StaticImage.class, Button.class, Player.class, Platform.class, MovableObject.class, Scenery.class);
+        setPaintOrder(ParticleEffect.class, StaticImage.class, Button.class,Enemy.class, Dialogue.class,  Player.class, Platform.class, MovableObject.class, Scenery.class);
         prepare();
         addObject(new StaticImage(16, Color.GREEN), getWidth()/2, getHeight()/2);
+        this.music = music;
     }
 
     public void act(){
         frames++;
 
+        if(frames == 1){
+            if(music == null){
+                music = new GreenfootSound("sounds/rainsong.mp3");
+                music.playLoop();   //PUT THIS BAC
+            }
+
+        }
+        
         //spawn bubbles
         if(Greenfoot.getRandomNumber(200) == 0){
 
@@ -196,14 +211,11 @@ public class GreenWorld extends World
 
         }
 
-        
+        if(sign1Offset-- == 0 ){
 
-        if(Greenfoot.getRandomNumber(15) == 0){
-            Goop goop = new Goop();
-            //addObject(goop, x, obj1.getY() - height*100 - 100);
-
+            addObject(new Sign(3), x, obj1.getY() - (int)(height*100));
         }
-        if(Greenfoot.getRandomNumber(3) == 0){
+        else if(Greenfoot.getRandomNumber(3) == 0){
             Flower flower = new Flower();
             addObject(flower, x, obj1.getY() - height*100);
 

@@ -13,11 +13,13 @@ public class Player extends GravityObject
     public double horizontalMovement = 4;
     public double jumpSpeed = 19;
 
-    private int frames = 0;
+    protected int frames = 0;
     private int walkingFrameNum = 0;
     private boolean walkingAnimationInOrder = true;
     private GreenfootImage[] walkingRight = new GreenfootImage[5];
     private GreenfootImage[] walkingLeft = new GreenfootImage[5];
+    private GreenfootImage[] walkingRightSwing = new GreenfootImage[5];
+    private GreenfootImage[] walkingLeftSwing = new GreenfootImage[5];
     private GreenfootImage jumpImageRight = new GreenfootImage("images/player_jump.png");
     private GreenfootImage jumpImageLeft = new GreenfootImage("images/player_jump.png");
 
@@ -33,20 +35,21 @@ public class Player extends GravityObject
     private GreenfootImage playerFellRight = new GreenfootImage("images/player_fell.png");
     private GreenfootImage playerFellLeft = new GreenfootImage(playerFellRight);
 
-    private GreenfootImage[] allImgs = new GreenfootImage[32];
+    private GreenfootImage[] allImgs = new GreenfootImage[42];
 
     public boolean isWalking = false;
     public boolean isWalkingRight = true;
-    private boolean isSwinging = false;
-    private int swingFrame = 0;
-    private int swingCharge = 0;
-    private boolean shiftHeldDown = false;
+    protected boolean isSwinging = false;
+    protected int swingFrame = 0;
+    protected int swingCharge = 0;
+    protected boolean shiftHeldDown = false;
+    protected boolean fireShotsOnClick = true;
 
     private boolean isBlinking = false;
     private int blinkingFrames = 0;
 
-    private boolean isIdling = false;
-    private int idleFrames = 0;
+    protected boolean isIdling = false;
+    int idleFrames = 0;
     private int idleDelay = 0;
     private int hitGroundFrames = 0;
 
@@ -86,7 +89,7 @@ public class Player extends GravityObject
     StaticImage critical = new StaticImage(18);
 
     public FinalBoss boss;
-    
+
     public boolean isDead = false;
     boolean criticalUp = true;
     int deadFrames = 0;
@@ -104,6 +107,12 @@ public class Player extends GravityObject
         walkingRight[2] = new GreenfootImage("images/player_0.png");
         walkingRight[3] = new GreenfootImage("images/player_1.png");
         walkingRight[4] = new GreenfootImage("images/player_2.png");
+
+        walkingRightSwing[0] = new GreenfootImage("images/playerswingwalk_4.png");
+        walkingRightSwing[1] = new GreenfootImage("images/playerswingwalk_3.png");
+        walkingRightSwing[2] = new GreenfootImage("images/playerswingwalk_0.png");
+        walkingRightSwing[3] = new GreenfootImage("images/playerswingwalk_1.png");
+        walkingRightSwing[4] = new GreenfootImage("images/playerswingwalk_2.png");
 
         playerFellLeft.mirrorHorizontally();
 
@@ -123,6 +132,7 @@ public class Player extends GravityObject
 
         for(int i = 0; i < walkingRight.length; i++){
             (walkingLeft[i] = new GreenfootImage(walkingRight[i])).mirrorHorizontally();
+            (walkingLeftSwing[i] = new GreenfootImage(walkingRightSwing[i])).mirrorHorizontally();
         }
 
         jumpImageLeft.mirrorHorizontally();
@@ -134,6 +144,12 @@ public class Player extends GravityObject
             allImgs[i+walkingRight.length] = walkingLeft[i];
             index += 2;
         }
+
+        for(int i = 0; i < walkingRightSwing.length; i++){
+            allImgs[i+index] = walkingRightSwing[i];
+            allImgs[i+index+walkingRightSwing.length] = walkingLeftSwing[i];
+        }
+        index += walkingRightSwing.length*2;
 
         allImgs[index++] = jumpImageRight;
         allImgs[index++] = jumpImageLeft;
@@ -159,6 +175,7 @@ public class Player extends GravityObject
         int heightTemp = 1;
 
         for(int i = 0; i < allImgs.length; i++){
+            //System.out.println(i);
             colorImage(allImgs[i], originalColor);
         }
 
@@ -186,9 +203,7 @@ public class Player extends GravityObject
         addFillColor(delta, true);
     }
 
-    
     public void checkDead(){
-
         if(yVel > 100 && !isDead){
             isDead = true;
             deathSound.play();
@@ -234,7 +249,7 @@ public class Player extends GravityObject
                     Greenfoot.setWorld(new OrangeWorld(((OrangeWorld)world).music));
                 }
                 if(world instanceof GreenWorld){
-                    Greenfoot.setWorld(new GreenWorld());
+                    Greenfoot.setWorld(new GreenWorld(((GreenWorld)world).music));
                 }
                 if(world instanceof BlueWorld){
                     Greenfoot.setWorld(new BlueWorld());
@@ -430,40 +445,40 @@ public class Player extends GravityObject
         }
         checkDead();
     }
-    
+
     public void smartCameraMove(){
-        if(goDownExtra){
-                if(isWalkingRight && getY() > 250 && getOneObjectAtOffset(200, 100, Platform.class) == null){
-                    if(getY() > 200 && getOneObjectAtOffset(400, 200, Platform.class) == null){
-                        moveWorldVertical(-2);
-                    }
-                    else{
-                        moveWorldVertical(-1);
-                    }
-
+        if(goDownExtra && ignoreBorders == false){
+            if(isWalkingRight && getY() > 250 && getOneObjectAtOffset(200, 100, Platform.class) == null){
+                if(getY() > 200 && getOneObjectAtOffset(400, 200, Platform.class) == null){
+                    moveWorldVertical(-2);
                 }
-                else if(!isWalkingRight && getY() > 250 && getOneObjectAtOffset(-200, 100, Platform.class) == null){
-                    if(getY() > 200 && getOneObjectAtOffset(-400, 200, Platform.class) == null){
-                        moveWorldVertical(-2);
-                    }
-                    else{
-                        moveWorldVertical(-1);
-                    }
-                }
-            }
-            else{
-                if(yVel == 0 && getY() > 100 && getOneObjectAtOffset(150, 100, Platform.class) == null && getOneObjectAtOffset(-150, 100, Platform.class) == null){
-
+                else{
                     moveWorldVertical(-1);
+                }
 
+            }
+            else if(!isWalkingRight && getY() > 250 && getOneObjectAtOffset(-200, 100, Platform.class) == null){
+                if(getY() > 200 && getOneObjectAtOffset(-400, 200, Platform.class) == null){
+                    moveWorldVertical(-2);
                 }
-                if(isWalkingRight && getX() > 250 && getY() < boss.getY() && getX() < boss.getX()){
-                    moveWorldHorizontal(-1);
-                }
-                else if(!isWalkingRight && getX() < 750 && getY() < boss.getY() && getX() > boss.getX()){
-                    moveWorldHorizontal(1);
+                else{
+                    moveWorldVertical(-1);
                 }
             }
+        }
+        else if(ignoreBorders == false){
+            if(yVel == 0 && getY() > 100 && getOneObjectAtOffset(150, 100, Platform.class) == null && getOneObjectAtOffset(-150, 100, Platform.class) == null){
+
+                moveWorldVertical(-1);
+
+            }
+            if(isWalkingRight && getX() > 250 && getY() < boss.getY() && getX() < boss.getX()){
+                moveWorldHorizontal(-1);
+            }
+            else if(!isWalkingRight && getX() < 750 && getY() < boss.getY() && getX() > boss.getX()){
+                moveWorldHorizontal(1);
+            }
+        }
     }
 
     public void paintSprites(int height, Color color, boolean up){
@@ -525,7 +540,7 @@ public class Player extends GravityObject
 
         isWalking = true;
 
-        if(isWalkingRight){
+        if(isWalkingRight && !isSwinging){
             setImage(walkingRight[2]);
             //setLocation(getX() - 40, getY());
         }
@@ -614,13 +629,12 @@ public class Player extends GravityObject
                 addFillColor(-1, false);
             }
         }
-            
+
         if(mouse != null && mouse.getButton() == 1 && !isSwinging){
             //System.out.println("charging" + Greenfoot.getRandomNumber(99));
             isSwinging = true;
             shiftHeldDown = true;
 
-            
         }
         else if(mouse != null && mouse.getButton() == 1 && isSwinging && Greenfoot.mouseClicked(null)){
             shiftHeldDown = false;
@@ -691,8 +705,10 @@ public class Player extends GravityObject
     }
 
     private void advanceAnimation(){
+        //System.out.println(isWalking);
         frames++;
         if(isSwinging){
+            
             isIdling = false;
             isBlinking = false;
             idleDelay = 0;
@@ -700,6 +716,34 @@ public class Player extends GravityObject
             blinkingFrames = 0;
 
             swingCharge++;
+            
+            if(isWalking){
+                if(frames % 3 == 0){
+                    if(walkingAnimationInOrder){ //go through array forwards
+                        if(isWalkingRight){
+                            setImage(walkingRightSwing[++walkingFrameNum]); 
+                        }
+                        else{
+                            setImage(walkingLeftSwing[++walkingFrameNum]); 
+                        }
+                    }
+                    else{ //Go through array backwards
+                        if(isWalkingRight){
+                            setImage(walkingRightSwing[--walkingFrameNum]); 
+                        }
+                        else{
+                            setImage(walkingLeftSwing[--walkingFrameNum]); 
+                        }
+                    }
+
+                    if(walkingFrameNum == 0){
+                        walkingAnimationInOrder = true;
+                    }
+                    else if(walkingFrameNum == walkingRightSwing.length - 1){
+                        walkingAnimationInOrder = false;
+                    }
+                }
+            }
             //System.out.println(swingFrame);
             if(frames % 3 == 0){
                 if(swingFrame >= swingingRight.length){
@@ -709,7 +753,7 @@ public class Player extends GravityObject
                 else{
 
                     if(shiftHeldDown){
-                        if(swingFrame < 2){
+                        if(swingFrame < 2 && !isWalking){
                             if(isWalkingRight){
 
                                 setImage(swingingRight[swingFrame++]);
@@ -719,11 +763,16 @@ public class Player extends GravityObject
                                 setImage(swingingLeft[swingFrame++]);
                             }
                         }
+                        else if(swingFrame < 2){
+                            swingFrame++;
+                        }
                     }
                     else{
                         if(isWalkingRight){
                             if(swingFrame == 2){
-                                world.addObject(new Heart('r', swingCharge, yVel/2), getX() + 20, getY());
+                                if(fireShotsOnClick){
+                                    addHeart('r', swingCharge,0,0, yVel/2, getX() + 20, getY());
+                                }
                                 List<StaticImage> swirls = world.getObjects(StaticImage.class);
                                 for(int i = 0; i < swirls.size(); i++){
                                     if(swirls.get(i).id == 5){
@@ -735,11 +784,18 @@ public class Player extends GravityObject
                                 }
                                 swingCharge = 0;
                             }
-                            setImage(swingingRight[swingFrame++]);
+                            if(!isWalking){
+                                setImage(swingingRight[swingFrame++]);
+                            }
+                            else{
+                                swingFrame++;
+                            }
                         }
                         else{
                             if(swingFrame == 2){
-                                world.addObject(new Heart('l', swingCharge, yVel/2), getX() - 20, getY());
+                                if(fireShotsOnClick){
+                                    addHeart('l', swingCharge,0,0, yVel/2, getX() - 20, getY());
+                                }
                                 List<StaticImage> swirls = world.getObjects(StaticImage.class);
                                 for(int i = 0; i < swirls.size(); i++){
                                     if(swirls.get(i).id == 5){
@@ -751,14 +807,19 @@ public class Player extends GravityObject
                                 }
                                 swingCharge = 0;
                             }
-                            setImage(swingingLeft[swingFrame++]);
+                            if(!isWalking){
+                                setImage(swingingLeft[swingFrame++]);
+                            }
+                            else{
+                                swingFrame++;
+                            }
                         }
 
                     }
 
                 }
             }
-            else if(shiftHeldDown){
+            else if(shiftHeldDown && !isWalking){
                 if(swingFrame >= swingingRight.length){
                     swingFrame = swingingRight.length -1;
                 }
@@ -916,5 +977,25 @@ public class Player extends GravityObject
                 }
             }
         }
+    }
+
+    protected void addHeart(char side, int charge, int xTar, int yTar, double vel, int x, int y){
+        Heart heart;
+        if(xTar != 0 && yTar != 0){
+
+            heart = new Heart(side, charge);
+            heart.useMouse = false;
+            world.addObject(heart, x, y);
+
+            heart.turnTowards(xTar, yTar);
+            heart.turn(-105); //lazy
+            heart.xVel = 0;
+            heart.yVel = 0;
+        }
+        else{
+            heart = new Heart(side, charge, vel);   
+            world.addObject(heart, x, y);
+        }
+
     }
 }

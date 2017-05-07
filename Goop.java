@@ -14,6 +14,8 @@ public class Goop extends Enemy
     boolean madeAppear = false;
     int playerReward = 20;
 
+    boolean docile = false;
+
     public Goop(Color color){
         super();
         this.color = color;
@@ -50,29 +52,32 @@ public class Goop extends Enemy
 
         if(target.isDead == false){
             if(isOnscreenX()){
-                off = 0;
-                madeAppear = true;
-                if(yVel == 0 && Greenfoot.getRandomNumber((Math.abs(target.getX() - getX())+1) / 10 + 1) == 0){
-                    yVel = -20;
-                    if(Math.abs(target.getX() - getX()) < 200){
-                        yVel += 10;
+                if(docile == false){
+                    off = 0;
+                    madeAppear = true;
+                    if(yVel == 0 && Greenfoot.getRandomNumber((Math.abs(target.getX() - getX())+1) / 10 + 1) == 0){
+                        yVel = -20;
+                        if(Math.abs(target.getX() - getX()) < 200){
+                            yVel += 10;
+                        }
+                        if(Math.abs(target.getX() - getX()) < 100){
+                            yVel += 5;
+                        }
+                        jump();
                     }
-                    if(Math.abs(target.getX() - getX()) < 100){
-                        yVel += 5;
+
+                    if(isJumping && yVel == 0){
+                        isJumping = false;
+                        setImage(idle);
+                        xVel = 0;
                     }
-                    jump();
                 }
-
-                if(isJumping && yVel == 0){
-                    isJumping = false;
-                    setImage(idle);
-                    xVel = 0;
-                }
-
                 Heart touched = null;
 
                 if((touched = (Heart)getOneIntersectingObject(Heart.class)) != null){
+
                     target.addFillColor(playerReward);
+                    
                     touched.pop();
                     deathSound.play();
                     for(int i = 0; i < 10; i++){
@@ -95,14 +100,20 @@ public class Goop extends Enemy
             }
         }
         else if(isJumping == false){
-            setImage(jumping);
-            isJumping = true;
-            xVel = Math.signum( getX() - target.getX()) * 3;
-            yVel = -20;
+            if(docile == false){
+                setImage(jumping);
+                isJumping = true;
+                xVel = Math.signum( getX() - target.getX()) * 3;
+                yVel = -20;
+            }
         }
 
         if(dead){
             world.removeObject(this);
+        }
+
+        else{ //cutscene object
+
         }
     }  
 

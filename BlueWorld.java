@@ -26,7 +26,7 @@ public class BlueWorld extends World
 
         this.music = music;
 
-        setPaintOrder(ParticleEffect.class, StaticImage.class, Button.class, Player.class, Platform.class, MovableObject.class, Scenery.class);
+        setPaintOrder(ParticleEffect.class, StaticImage.class, Button.class, Enemy.class, Dialogue.class, Player.class, Platform.class, MovableObject.class, Scenery.class);
 
         prepare();
         addObject(new StaticImage(16, Color.BLUE), getWidth()/2, getHeight()/2);

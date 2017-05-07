@@ -222,7 +222,7 @@ public class CutsceneB extends World
         
         if(frames == 3570){
             music.stop();
-            Greenfoot.setWorld(new RedWorld());
+            Greenfoot.setWorld(new PreWorld());
         }
         
        if(frames % 3 == 0 && frames > 3350 && vol > 0){

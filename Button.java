@@ -117,7 +117,7 @@ public class Button extends UIObject
                 if(id == 2){
                     
                     if(world instanceof RedWorld){
-                        Greenfoot.setWorld(new CutsceneC());
+                        Greenfoot.setWorld(new CutsceneH());
                     }
                     else if(world instanceof OrangeWorld){
                         Greenfoot.setWorld(new CutsceneD());
