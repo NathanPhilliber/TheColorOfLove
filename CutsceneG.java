@@ -7,7 +7,10 @@ public class CutsceneG extends World
     int frames = 0;
     StaticImage players[] = new StaticImage[5];
     CutscenePlayer player = new CutscenePlayer();
-    
+    GreenfootSound win0 = new GreenfootSound("sounds/winzoom.mp3");
+    GreenfootSound music = new GreenfootSound("sounds/ending.mp3");
+    int vol = 80;
+    boolean fadeMusic = false;
     public CutsceneG()
     {    
 
@@ -30,16 +33,24 @@ public class CutsceneG extends World
         }
         
         addObject(new StaticImage(16, Color.WHITE), getWidth()/2, getHeight()/2); 
-
+        music.setVolume(80);
     }
 
     public void act(){
+        if(frames == 0){
+            music.play();
+        }
         frames++;
+        if(fadeMusic && vol > 0 && frames % 2 ==0){
+            music.setVolume(vol--);
+        }
         
         if(frames < 1000){
             for(int i = 0; i < players.length; i++){
                 players[i].setLocation(players[i].getX() + (int)(Math.sin(players[i].getY()/12)*2), players[i].getY() + 2);
             }
+            
+            
 
         }
         
@@ -58,9 +69,16 @@ public class CutsceneG extends World
         
         if(frames == 1050){
             addObject(new StaticImage(12, Color.BLACK), 500, 300);
+            
         }
         
+        if(frames == 1124){
+            fadeMusic = true;
+        }
+        
+        
         if(frames >= 1305){
+            music.stop();
             Greenfoot.setWorld(new Credits());
         }
         

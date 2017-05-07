@@ -25,6 +25,8 @@ public class GreenWorld extends World
     int numMonsters = 0;
 
     int sign1Offset = 8;
+    int vol = 100;
+    public boolean fadeMusic = false;
 
     public GreenWorld(){
         this(null);
@@ -48,6 +50,10 @@ public class GreenWorld extends World
                 music.playLoop();   //PUT THIS BAC
             }
 
+        }
+        
+        if(fadeMusic && vol > 0){
+            music.setVolume(vol--);
         }
         
         //spawn bubbles

@@ -1,5 +1,5 @@
 import greenfoot.*; 
-
+import java.util.List;
 public class Button extends UIObject
 {
     int id;
@@ -52,6 +52,15 @@ public class Button extends UIObject
         }
         else if(id == 2){
             if(pressed == false){
+                
+                List<Enemy> enemies = world.getObjects(Enemy.class);
+                for(int i = 0; i < enemies.size(); i++){
+                    enemies.get(i).stopAttacking = true;
+                }
+                
+                List<Player> players = world.getObjects(Player.class);
+                players.get(0).isContinuing = true;
+                
                 pressed = true;
                 if(world instanceof Instructions){
                     Greenfoot.setWorld(new CutsceneA());
@@ -68,6 +77,7 @@ public class Button extends UIObject
                 else if(world instanceof GreenWorld){
                     StaticImage fadeOut = new StaticImage(12, Color.GREEN);
                     world.addObject(fadeOut, 500, 300);
+                    ((GreenWorld)world).fadeMusic = true;
                 }
                 else if(world instanceof BlueWorld){
                     StaticImage fadeOut = new StaticImage(12, Color.BLUE);

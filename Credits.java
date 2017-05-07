@@ -3,7 +3,7 @@ import greenfoot.*;
 
 public class Credits extends World
 {
-
+    
     
     public Credits()
     {            

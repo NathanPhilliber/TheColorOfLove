@@ -50,7 +50,7 @@ public class Goop extends Enemy
     {
         super.act();
 
-        if(target.isDead == false){
+        if(target.isDead == false  && stopAttacking == false){
             if(isOnscreenX()){
                 if(docile == false){
                     off = 0;

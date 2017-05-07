@@ -68,7 +68,7 @@ public class Cloud extends Enemy
                 setLocation(getX(), getY() + 4);
             }
 
-            if(frames % 300 < 150 && frames % 7 == 0 && player.isDead == false){
+            if(frames % 300 < 150 && frames % 7 == 0 && player.isDead == false  && stopAttacking == false){
                 world.addObject(new Rain(), getX() + Greenfoot.getRandomNumber(10)-5, getY() + 20);
             }
 
@@ -112,7 +112,7 @@ public class Cloud extends Enemy
 
             }
 
-            if(frames % 150 < 100 && frames % 7 == 0 && player.isDead == false){
+            if(frames % 150 < 100 && frames % 7 == 0 && player.isDead == false  && stopAttacking == false){
                 world.addObject(new Rain(), getX() + Greenfoot.getRandomNumber(10)-5, getY() + 20);
             }
 

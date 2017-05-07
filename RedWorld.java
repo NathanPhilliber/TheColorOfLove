@@ -50,6 +50,11 @@ public class RedWorld extends World
             generatedTerrain--;
             addObject(new Bubble('r'), getWidth() + 10, Greenfoot.getRandomNumber(getHeight()));
         }
+        
+        if(sign1Offset < -60 && Greenfoot.getRandomNumber(175) == 0 && getObjects(Goop.class).size() < 3){
+
+            addObject(new Goop(), Greenfoot.getRandomNumber(800) + 100, -100);
+        }
 
         //check right generation
         if(rightMost.getX() < getWidth() + 500){

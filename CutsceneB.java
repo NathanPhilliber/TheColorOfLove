@@ -39,6 +39,7 @@ public class CutsceneB extends World
         if(frames == 198){
             addObject(text, 500, 500);
             text.startReveal();
+            Greenfoot.getKey();
         }
         
         if(frames > 268 && frames < 400){
@@ -50,11 +51,13 @@ public class CutsceneB extends World
         if(frames == 400){
             removeObject(text);
             text = new Dialogue(1);
+
         }
         
         if(frames == 450){
             addObject(text, 500, 500);
             text.startReveal();
+            Greenfoot.getKey();
         }
         
         if(frames > 520 && frames < 630){
@@ -66,11 +69,13 @@ public class CutsceneB extends World
         if(frames == 630){
             removeObject(text);
             text = new Dialogue(2);
+
         }
         
         if(frames == 680){
             addObject(text, 500, 500);
             text.startReveal();
+            Greenfoot.getKey();
         }
         
         if(frames > 750 && frames < 930){
@@ -87,6 +92,7 @@ public class CutsceneB extends World
         if(frames == 1050){
             addObject(text, 500, 500);
             text.startReveal();
+            Greenfoot.getKey();
         }
         
         if(frames > 1110 && frames < 1365){
@@ -102,6 +108,7 @@ public class CutsceneB extends World
         if(frames == 1180){
             addObject(text, 500, 500);
             text.startReveal();
+            Greenfoot.getKey();
         }
         
         if(frames == 1450){
@@ -112,6 +119,7 @@ public class CutsceneB extends World
         if(frames == 1485){
             addObject(text, 500, 500);
             text.startReveal();
+            Greenfoot.getKey();
         }
         
         if(frames > 1555 && frames < 1780){
@@ -128,6 +136,7 @@ public class CutsceneB extends World
         if(frames == 1810){
             addObject(text, 500, 500);
             text.startReveal();
+            Greenfoot.getKey();
         }
         
         if(frames > 1880 && frames < 2105){
@@ -144,6 +153,7 @@ public class CutsceneB extends World
         if(frames == 2135){
             addObject(text, 500, 500);
             text.startReveal();
+            Greenfoot.getKey();
         }
         
         if(frames > 2205 && frames < 2390){
@@ -160,6 +170,7 @@ public class CutsceneB extends World
         if(frames == 2400){
             addObject(text, 500, 500);
             text.startReveal();
+            Greenfoot.getKey();
         }
         
         if(frames > 2470 && frames < 2500){
@@ -176,6 +187,7 @@ public class CutsceneB extends World
         if(frames == 2530){
             addObject(text, 500, 500);
             text.startReveal();
+            Greenfoot.getKey();
         }
         
         if(frames > 2600 && frames < 2800){
@@ -192,6 +204,7 @@ public class CutsceneB extends World
         if(frames == 2825){
             addObject(text, 500, 500);
             text.startReveal();
+            Greenfoot.getKey();
         }
         
         if(frames > 2895 && frames < 3020){
@@ -208,6 +221,7 @@ public class CutsceneB extends World
         if(frames == 3050){
             addObject(text, 500, 500);
             text.startReveal();
+            Greenfoot.getKey();
         }
         
         if(frames > 3120 && frames < 3300){
@@ -218,6 +232,7 @@ public class CutsceneB extends World
         
         if(frames == 3300){
             addObject(fadeOut, 500, 300);
+            Greenfoot.getKey();
         }
         
         if(frames == 3570){

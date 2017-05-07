@@ -24,6 +24,7 @@ public class Sign extends Scenery
             text = new Dialogue(18);
         }
         else if(id == 2){
+            lifetime = 300;
             text = new Dialogue(19);
         }
         else if(id == 3){

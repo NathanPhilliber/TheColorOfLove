@@ -52,20 +52,22 @@ public class Dialogue extends UIObject
         if(lines2 == false){
             if(start && x < width){
                 soundDelay++;
-                if(sound == 0 && soundDelay >= 4){
-                    sound++;
-                    sound0.play();
-                    soundDelay = 0;
-                }
-                else if(sound == 1 && soundDelay >= 4){
-                    sound++;
-                    sound1.play();
-                    soundDelay = 0;
-                }
-                else if(soundDelay >= 4){
-                    sound = 0;
-                    sound2.play();
-                    soundDelay =0;
+                if(getY() > 0){
+                    if(sound == 0 && soundDelay >= 4){
+                        sound++;
+                        sound0.play();
+                        soundDelay = 0;
+                    }
+                    else if(sound == 1 && soundDelay >= 4){
+                        sound++;
+                        sound1.play();
+                        soundDelay = 0;
+                    }
+                    else if(soundDelay >= 4){
+                        sound = 0;
+                        sound2.play();
+                        soundDelay =0;
+                    }
                 }
 
                 setImage(new GreenfootImage(org));
@@ -81,23 +83,24 @@ public class Dialogue extends UIObject
         }
         else{
 
-            
             if(start && x < width){
                 soundDelay++;
-                if(sound == 0 && soundDelay >= 4){
-                    sound++;
-                    sound0.play();
-                    soundDelay = 0;
-                }
-                else if(sound == 1 && soundDelay >= 4){
-                    sound++;
-                    sound1.play();
-                    soundDelay = 0;
-                }
-                else if(soundDelay >= 4){
-                    sound = 0;
-                    sound2.play();
-                    soundDelay =0;
+                if(getY() > 0){
+                    if(sound == 0 && soundDelay >= 4){
+                        sound++;
+                        sound0.play();
+                        soundDelay = 0;
+                    }
+                    else if(sound == 1 && soundDelay >= 4){
+                        sound++;
+                        sound1.play();
+                        soundDelay = 0;
+                    }
+                    else if(soundDelay >= 4){
+                        sound = 0;
+                        sound2.play();
+                        soundDelay =0;
+                    }
                 }
 
                 setImage(new GreenfootImage(org));
@@ -106,42 +109,41 @@ public class Dialogue extends UIObject
                 if(width - 5 == x){
                     x = width - 1;
                 }
-                
-                
 
                 getImage().fillRect(x += 5, 0, width, org.getHeight()/2);
                 getImage().fillRect(0, org.getHeight()/2, width, org.getHeight()/2 + 1);
 
             }
             else if(pauseCounter-- == 0){
-                
+
             }
             else if(start && x < width*2 && pauseCounter < 0){
-                
-                soundDelay++;
-                if(sound == 0 && soundDelay >= 4){
-                    sound++;
-                    sound0.play();
-                    soundDelay = 0;
-                }
-                else if(sound == 1 && soundDelay >= 4){
-                    sound++;
-                    sound1.play();
-                    soundDelay = 0;
-                }
-                else if(soundDelay >= 4){
-                    sound = 0;
-                    sound2.play();
-                    soundDelay =0;
-                }
 
+                soundDelay++;
+                if(getY() > 0){
+                    if(sound == 0 && soundDelay >= 4){
+                        sound++;
+                        sound0.play();
+                        soundDelay = 0;
+                    }
+                    else if(sound == 1 && soundDelay >= 4){
+                        sound++;
+                        sound1.play();
+                        soundDelay = 0;
+                    }
+                    else if(soundDelay >= 4){
+                        sound = 0;
+                        sound2.play();
+                        soundDelay =0;
+                    }
+                }
                 setImage(new GreenfootImage(org));
                 getImage().setColor(Color.BLACK);
 
                 if(width - 5 == x2){
                     x2 = width - 1;
                 }
-                
+
                 x+= 5;
 
                 getImage().fillRect(x2 += 5, org.getHeight()/2, width, org.getHeight()/2 +1 );

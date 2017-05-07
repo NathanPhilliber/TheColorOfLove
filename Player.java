@@ -91,8 +91,9 @@ public class Player extends GravityObject
     public FinalBoss boss;
 
     public boolean isDead = false;
+    public boolean isContinuing = false;
     boolean criticalUp = true;
-    int deadFrames = 0;
+    public int deadFrames = 0;
     public boolean hideCritical = false;
 
     public Player(){
@@ -437,7 +438,7 @@ public class Player extends GravityObject
 
             updatePaintHeight();
 
-            if(getOneObjectAtOffset(-20,35, Goop.class) != null || getOneObjectAtOffset(20,35, Goop.class) != null){
+            if(!isDead && !isContinuing && (getOneObjectAtOffset(-20,35, Goop.class) != null || getOneObjectAtOffset(20,35, Goop.class) != null)){
                 addFillColor(-1);
             }
 

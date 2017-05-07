@@ -235,11 +235,19 @@ public class FinalBoss extends Enemy
 
             if(attackState == 0){ //move down
                 setLocation(getX(), getY() + 1);
-
+                if(counter == 0){
+                    Goop goop = new Goop(new Color(80, 255, 80));
+                    goop.playerReward = 7;
+                    world.addObject(goop, getX() - 350, -100);
+                    goop = new Goop(new Color(80, 255, 80));
+                    goop.playerReward = 7;
+                    world.addObject(goop, getX() + 350, -100);
+                }
                 counter++;
                 if(counter > 180){
                     counter = 0;
                     attackState++;
+                    
                 }
             }
             else if(attackState == 1){ //clockwise
@@ -350,6 +358,12 @@ public class FinalBoss extends Enemy
             setLocation(getX(), getY() + (int)(Math.sin(frames/12)*2));
             if(attackState == 0){
                 counter++;
+                if(counter == 1 && world.getObjects(Eyeball.class).size() <= 0){
+                    Eyeball eyeball = new Eyeball();
+                    eyeball.playerReward = 10;
+                    colorImage(eyeball.getImage(), new Color(80, 80, 255));
+                    world.addObject(eyeball, getX(), -100);
+                }
 
                 if(counter % 140 == 0){
                     fire2.play();
@@ -364,6 +378,7 @@ public class FinalBoss extends Enemy
                     attackState++;
                     counter = 0;
                     colorImage(getImage(), Color.WHITE);
+                    
                 }
             }
             else if(attackState == 1){
@@ -404,6 +419,14 @@ public class FinalBoss extends Enemy
             }
 
             if(attackState == 0){
+                if(counter == 0){
+                    Goop goop = new Goop(new Color(250, 145, 255));
+                    goop.playerReward = 7;
+                    world.addObject(goop, getX() - 350, -100);
+                    goop = new Goop(new Color(250, 145, 255));
+                    goop.playerReward = 7;
+                    world.addObject(goop, getX() + 350, -100);
+                }
                 counter++;
                 setLocation(getX() - 2*counter2, getY() + (int)(Math.sin(frames/12)*2));
                 if(frames % 4 == 0){

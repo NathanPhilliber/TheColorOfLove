@@ -14,6 +14,8 @@ public class Eyeball extends Enemy
     GreenfootSound moveSound = new GreenfootSound("sounds/eyeballmove.mp3");
     GreenfootSound deathSound = new GreenfootSound("sounds/eyeballdeath.mp3");
     int playerReward = 35;
+    
+    
 
     public Eyeball(){
         super();
@@ -35,7 +37,7 @@ public class Eyeball extends Enemy
         super.act();
         frames++;
 
-        if(player.isDead == false){
+        if(player.isDead == false && stopAttacking == false){
             if(goSweep){
                 setLocation(getX() + sweepDir*8, getY());
                 if(getX() <= 100 || getX() >= 900){
@@ -99,7 +101,7 @@ public class Eyeball extends Enemy
         else{
             setLocation(getX(), getY() + (int)(Math.sin(frames/15)*2));
 
-            if(player.isDead == false){
+            if(player.isDead == false  && stopAttacking == false){
                 if(goSweep){
                     if(frames % 12 == 0){
                         world.addObject(new EyeBullet(player), getX(), getY());
