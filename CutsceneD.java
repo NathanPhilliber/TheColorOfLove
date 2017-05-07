@@ -14,7 +14,10 @@ public class CutsceneD extends World
     GreenfootSound zoom = new GreenfootSound("sounds/color_enter_0.mp3");
     GreenfootSound enter = new GreenfootSound("sounds/color_enter_1.mp3");
     GreenfootSound roar = new GreenfootSound("sounds/roar.mp3");
+    
+    Dialogue text = new Dialogue(23);
 
+    
     public CutsceneD()
     {    
 
@@ -29,8 +32,12 @@ public class CutsceneD extends World
         addObject(titleCard, 500, 300);
         addObject(subtitleCard, 500, 300);
         
-        for(int i = 0; i < 18; i++){
-            addObject(new FakePlatform(), Greenfoot.getRandomNumber(1200)-100, Greenfoot.getRandomNumber(1000));
+        for(int i = 0; i < 9; i++){
+            addObject(new FakePlatform(), Greenfoot.getRandomNumber(400)-50, Greenfoot.getRandomNumber(900));
+        }
+        
+        for(int i = 0; i < 9; i++){
+            addObject(new FakePlatform(), Greenfoot.getRandomNumber(400)+650, Greenfoot.getRandomNumber(900));
         }
 
     }
@@ -47,10 +54,18 @@ public class CutsceneD extends World
             if(frames > 30){
                 boss.setLocation(boss.getX()+ (int)(Math.sin(frames/12)*2) + offset, boss.getY() + (int)(Math.sin(frames/12)*2));
             }
+            
+            if(frames == 200){
+                addObject(text, 500, 450);
+            }
 
             if(boss.getX() >= 500 && boss.getX() <= 505){
                 roar.play();
                 offset = 5;
+            }
+            
+            if(frames == 420){
+                removeObject(text);
             }
 
             if(boss.getX() >= 500 && boss.getX() <= 750){
