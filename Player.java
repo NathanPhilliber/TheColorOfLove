@@ -242,7 +242,7 @@ public class Player extends GravityObject
         if(isDead){
             deadFrames++;
 
-            if(deadFrames >= 255){
+            if(deadFrames >= 255 && isContinuing == false){
                 if(world instanceof RedWorld){
                     Greenfoot.setWorld(new RedWorld());
                 }

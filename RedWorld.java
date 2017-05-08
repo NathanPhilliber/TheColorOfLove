@@ -192,10 +192,11 @@ public class RedWorld extends World
             }
 
         }
+        
 
         if(Greenfoot.getRandomNumber(13) == 0){
             Goop goop = new Goop();
-            addObject(goop, x, obj1.getY() - height*100 - 100);
+            addObject(goop, x, obj1.getY() - height*100 - 200);
 
         }
         
@@ -307,6 +308,14 @@ public class RedWorld extends World
                     list.set(i, temp);
                     j = i;
                 }
+            }
+        }
+        
+        for(int i = 0; i < list.size(); i++){
+            if(list.get(i) instanceof Enemy){
+                Enemy en = (Enemy)list.get(i);
+                list.remove(i);
+                list.add(en);
             }
         }
         //System.out.println("===");

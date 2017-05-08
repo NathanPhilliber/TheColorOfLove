@@ -485,10 +485,11 @@ public class FinalBoss extends Enemy
         }
         else if(colorState == 5){
             counter++;
+            
             getImage().setTransparency(256 - counter);
             if(counter == 1){
                 world.addObject(new StaticImage(12, Color.WHITE), 500, 300);//fade
-
+                player.isContinuing = true;
                 ((PurpleWorld)world).fadeMusic = true;
             }
 

@@ -52,15 +52,17 @@ public class Button extends UIObject
         }
         else if(id == 2){
             if(pressed == false){
-                
+
                 List<Enemy> enemies = world.getObjects(Enemy.class);
                 for(int i = 0; i < enemies.size(); i++){
                     enemies.get(i).stopAttacking = true;
                 }
-                
+
                 List<Player> players = world.getObjects(Player.class);
-                players.get(0).isContinuing = true;
-                
+                if(players.size() != 0){
+                    players.get(0).isContinuing = true;
+                }
+
                 pressed = true;
                 if(world instanceof Instructions){
                     Greenfoot.setWorld(new CutsceneA());
@@ -84,12 +86,9 @@ public class Button extends UIObject
                     world.addObject(fadeOut, 500, 300);
                 }
                 else if(world instanceof PurpleWorld){
- 
 
                 }
-                
             }
-
         }
         else if(id == 3){
             Greenfoot.setWorld(new TitleScreen());
@@ -119,13 +118,12 @@ public class Button extends UIObject
         super.act();
 
         
-        
         if(pressed){
             framesAfter++;
 
             if(framesAfter > 285){
                 if(id == 2){
-                    
+
                     if(world instanceof RedWorld){
                         Greenfoot.setWorld(new CutsceneH());
                     }
@@ -145,9 +143,7 @@ public class Button extends UIObject
             }
         }
 
-        
         MouseInfo mouse = Greenfoot.getMouseInfo();
-
         if(mouse != null && mouse.getX() > getX() - img.getWidth()/2 && mouse.getX() < getX() + img.getWidth()/2 && mouse.getY() > getY() - img.getHeight()/2 && mouse.getY() < getY() + img.getHeight()/2){
             if(Greenfoot.mousePressed(null)){
                 operate();
