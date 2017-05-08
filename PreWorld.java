@@ -119,7 +119,7 @@ public class PreWorld extends World
         int prob = Greenfoot.getRandomNumber(101);
         
         if(moved < 0){
-           return Math.abs(moved + Greenfoot.getRandomNumber(5) + 3);
+           return Math.abs(moved + Greenfoot.getRandomNumber(5) + 8);
 
         }
         

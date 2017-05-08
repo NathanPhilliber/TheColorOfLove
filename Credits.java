@@ -10,5 +10,7 @@ public class Credits extends World
         super(1000, 600, 1); 
         addObject(new StaticImage(4), getWidth()/2, getHeight()/2);
         addObject(new Button(3), getWidth()/2, 520);
+        addObject(new StaticImage(16, Color.BLACK), 500, 300);
+        
     }
 }

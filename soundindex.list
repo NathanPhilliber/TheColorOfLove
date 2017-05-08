@@ -1,6 +1,7 @@
 .DS_Store
 apr.mp3
 ascending.mp3
+blip.mp3
 Boss_0.mp3
 Boss_0_OLD.wav
 Boss_1.wav
@@ -10,6 +11,8 @@ Boss_4.mp3
 Boss_5.wav
 Boss_6.mp3
 Boss_6_OLD.wav
+Boss_7.mp3
+buttonhover.mp3
 chibininja.mp3
 color_enter_0.mp3
 color_enter_1.mp3
@@ -24,6 +27,11 @@ ding_1.mp3
 ding_1.wav
 ding_2.wav
 ding_3.wav
+drop0.mp3
+drop1.mp3
+drop2.mp3
+drop3.mp3
+drop4.mp3
 Dump_0.mp3
 Dump_0.wav
 Dump_1.mp3
@@ -31,11 +39,13 @@ Dump_2.mp3
 Dump_3.mp3
 Dump_4.mp3
 Dump_5.mp3
+ending.mp3
 eyeballdeath.mp3
 eyeballmove.mp3
 eyefire.mp3
 heal_0.mp3
 heal_0.wav
+heal_ODL0.mp3
 Hover.wav
 Hurt_0.mp3
 Hurt_0.wav
@@ -49,11 +59,14 @@ Kiss_0.wav
 Kiss_1.wav
 Kiss_2.wav
 Kiss_3.wav
+rainsong.mp3
+roar.mp3
 Select.wav
 Shake.wav
 text_0.mp3
 text_0.wav
 text_1.mp3
+text_2.mp3
 Walk_0.mp3
 Walk_0.ogg
 Walk_0.wav
@@ -61,3 +74,5 @@ Walk_1.mp3
 Walk_1.ogg
 Walk_1.wav
 warning.mp3
+winzoom.mp3
+yay.mp3
